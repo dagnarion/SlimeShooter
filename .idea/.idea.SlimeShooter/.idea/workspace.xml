@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="" />
+    <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scene.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Coeveyor.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Coeveyor.unity.meta" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +163,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1788938835942</updated>
-      <workItem from="1788938839876" duration="309000" />
+      <workItem from="1788938839876" duration="683000" />
     </task>
     <servers />
   </component>
