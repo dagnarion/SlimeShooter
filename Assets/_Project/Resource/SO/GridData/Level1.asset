@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3ef9aad08a450e855525b1c8f37243, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: Assembly-CSharp::GridDataSO
-  GridSize: {x: 2, y: 2}
+  GridSize: {x: 3, y: 5}
   CellSize: {x: 1, y: 1}
   CellGap: {x: 0.5, y: 0.5}

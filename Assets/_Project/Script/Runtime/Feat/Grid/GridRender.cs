@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class GridRender : MonoBehaviour
 {
-   [SerializeField] private Grid grid;
+   private Grid grid;
    private GridDataSO config;
 
-   public void Init(GridDataSO config)
+   public void Init(Grid grid,GridDataSO config)
    {
+      this.grid = grid;
       this.config = config;
    }
    
