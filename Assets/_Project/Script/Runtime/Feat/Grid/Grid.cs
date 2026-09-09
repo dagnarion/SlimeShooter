@@ -1,57 +1,53 @@
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
 public class Grid<T>
 {
-    private T[,] grid;
-    private Vector2Int size;
+    private Dictionary<Vector3Int, T> grid;
+    private Vector3Int gridSize;
 
-    public Grid(Vector2Int size, Func<Vector2Int, T> factory)
+    public Grid(Vector3Int gridSize,Func<Vector3Int,T> value)
     {
-        this.size = size;
-        grid = new T[size.x, size.y];
-        
-        for (int x = 0; x < size.x; x++)
-        for (int y = 0; y < size.y; y++)
+        this.gridSize = gridSize;
+        grid = new Dictionary<Vector3Int, T>();
+        for(int x = 0;x<gridSize.x;x++)
+        for (int y = 0; y < gridSize.y; y++)
         {
-            grid[x, y] = factory(new Vector2Int(x, y));
+            Vector3Int pos = new Vector3Int(x, y,0);
+            grid[pos] = value != null ? value(pos) : default;
         }
     }
 
-    public void GridTraversal(Action<T> action)
+    public void GridTraversal(Action<Vector3Int,T> action)
     {
-        for (int x = 0; x < size.x; x++)
-        for (int y = 0; y < size.y; y++)
+        for(int x = -gridSize.x;x<=gridSize.x;x++)
+        for (int y = -gridSize.y; y <= gridSize.y; y++)
         {
-            action?.Invoke(grid[x, y]);
+            Vector3Int pos = new Vector3Int(x, y , 0);
+            grid.TryGetValue(pos, out T val);
+            action(pos, val);
         }
     }
-
-    public T GetElement(Vector2Int pos)
+    
+    public T GetValue(Vector3Int pos)
     {
-        if (!IsOnGrid(pos))
-        {
-            Debug.LogWarning($"{pos} out of the range");
-            return default;
-        }
-
-        return grid[pos.x, pos.y];
+        if (!IsOnGrid(pos)) return default;
+        if (grid.TryGetValue(pos, out T value)) return value;
+        return default;
     }
 
-    public void SetElement(Vector2Int pos, T value)
-    {
-        if (!IsOnGrid(pos))
-        {
-            Debug.LogWarning($"{value} out of the range");
-            return;
-        }
 
-        grid[pos.x, pos.y] = value;
+    public void SetValue(Vector3Int pos, T value)
+    {
+        if (!IsOnGrid(pos)) return;
+        grid[pos] = value;
     }
 
-    public bool IsOnGrid(Vector2Int pos)
+
+    public bool IsOnGrid(Vector3Int position)
     {
-        if (pos.x < 0 || pos.x >= size.x || pos.y < 0 || pos.y >= size.y) return false;
-        return true;
+        return Mathf.Abs(position.x) <= gridSize.x && 
+               Mathf.Abs(position.y) <= gridSize.y;
     }
 }
