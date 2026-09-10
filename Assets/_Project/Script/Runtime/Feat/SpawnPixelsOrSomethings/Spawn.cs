@@ -36,10 +36,6 @@ public class Spawn : MonoBehaviour
         );
     }
 
-    private void Start()
-    {
-        SpawnPixels();
-    }
 
     public void SpawnPixels()
     {
