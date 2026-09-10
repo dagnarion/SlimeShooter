@@ -11,8 +11,24 @@ public class ConveyorDataSO : ScriptableObject
     
     [Min(0f)]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpDuration;
+    [SerializeField] private float dropDuration;
+    
+    [SerializeField] private int maxBeltCapacity;
+    [SerializeField] private int maxQueueCapacity;
+    
+    [SerializeField] private float safeDistance;
+    [SerializeField] private float itemHeight;
+
     
     public float StartPointInConveyor => startPointInConveyor;
     public float EndPointInConveyor => endPointInConveyor;
     public float MoveSpeed => moveSpeed;
+    public float JumpDuration => jumpDuration;
+    public float DropDuration => dropDuration;
+    public  int MaxBeltCapacity => maxBeltCapacity;
+    public int MaxQueueCapacity => maxQueueCapacity;
+    public int MaxCapacity => maxBeltCapacity +  maxQueueCapacity;
+    public  float SafeDistance => safeDistance;
+    public float ItemHeight => itemHeight;
 }
