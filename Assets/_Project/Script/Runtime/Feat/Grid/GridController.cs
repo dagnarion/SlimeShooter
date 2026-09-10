@@ -42,6 +42,7 @@ public class GridController : MonoBehaviour
     private void Choose(Vector3 pos)
     {
         Vector3Int position = gridComponent.WorldToCell(pos);
+        if(grid.IsOnGrid((Vector2Int)position))
         Debug.Log(position);
     }
 }
