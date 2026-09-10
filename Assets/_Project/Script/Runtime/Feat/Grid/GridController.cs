@@ -1,6 +1,7 @@
 using System;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GridController : MonoBehaviour
 {
@@ -41,8 +42,33 @@ public class GridController : MonoBehaviour
 
     private void Choose(Vector3 pos)
     {
-        Vector3Int position = gridComponent.WorldToCell(pos);
-        if(grid.IsOnGrid((Vector2Int)position))
-        Debug.Log(position);
+       if(!TryGetSlime(pos)) return;
+       Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
+       GameObject gameObject = grid.GetValue(position);
+       Destroy(gameObject);
+       Rearrange(position);
     }
+
+    private void Rearrange(Vector2Int pos)
+    {
+        for (int y = pos.y; y >= 0; y--)
+        {
+            GameObject nextValue = grid.GetValue(new Vector2Int(pos.x, y - 1));
+            grid.SetValue(new Vector2Int(pos.x,y),nextValue);
+            if (nextValue != null)
+            {
+                nextValue.transform.position = gridComponent.GetCellCenterWorld(new Vector3Int(pos.x, y, 0));
+            }
+        }
+    }
+    
+    private bool TryGetSlime(Vector3 pos)
+    {
+        Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
+        if(!grid.IsOnGrid(position)) return false;
+        if(grid.GetValue(position+new Vector2Int(0,1)) != null) return false;
+        return true;
+    }
+        
+    
 }
