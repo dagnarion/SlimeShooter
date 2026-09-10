@@ -1,15 +1,21 @@
 using System;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class GridController : MonoBehaviour
 {
-    [SerializeField] private GridDataSO data;
-    [SerializeField] private GridRender render;
-    [SerializeField] private GameObject slimePrefab;
+    [SerializeField] private GridDataSO gridData;
+    [SerializeField] private GridDataSO waitLinedata;
+    [SerializeField] private GridRender gridRender;
+    [SerializeField] private GridRender waitLineRender;
     [SerializeField] private Grid gridComponent;
+    [SerializeField] private Grid waitLineGridComponent;
+    [SerializeField] private WaitLine waitLine;
+    
     [SerializeField] private Transform holder;
+    [SerializeField] private GameObject slimePrefab;
     [SerializeField] private SelectionEventChannel selectionEventChannel;
     private Grid<GameObject> grid;
 
@@ -32,12 +38,14 @@ public class GridController : MonoBehaviour
     private void Init()
     {
         holder.Clear();
-        render.Init(gridComponent,data);
-        grid = new Grid<GameObject>(data.GridSize, Pos =>
+        gridRender.Init(gridComponent,gridData);
+        waitLineRender.Init(waitLineGridComponent,waitLinedata);
+        grid = new Grid<GameObject>(gridData.GridSize, Pos =>
         {
             GameObject slime = Instantiate(slimePrefab,gridComponent.GetCellCenterWorld(new Vector3Int(Pos.x,Pos.y,0)),Quaternion.identity,holder);
             return slime;
         });
+        waitLine.Init(waitLineGridComponent,waitLinedata);
     }
 
     private void Choose(Vector3 pos)
@@ -45,7 +53,10 @@ public class GridController : MonoBehaviour
        if(!TryGetSlime(pos)) return;
        Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
        GameObject gameObject = grid.GetValue(position);
-       Destroy(gameObject);
+       // test
+       if(waitLine.IsFull()) return;
+       waitLine.Add(gameObject);
+       //Destroy(gameObject);
        Rearrange(position);
     }
 
@@ -57,7 +68,7 @@ public class GridController : MonoBehaviour
             grid.SetValue(new Vector2Int(pos.x,y),nextValue);
             if (nextValue != null)
             {
-                nextValue.transform.position = gridComponent.GetCellCenterWorld(new Vector3Int(pos.x, y, 0));
+                nextValue.transform.DOMove( gridComponent.GetCellCenterWorld(new Vector3Int(pos.x, y, 0)),0.5f);
             }
         }
     }
