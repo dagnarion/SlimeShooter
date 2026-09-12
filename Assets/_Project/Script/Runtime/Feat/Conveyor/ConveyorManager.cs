@@ -7,6 +7,7 @@ public class ConveyorManager : MonoBehaviour
 {
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private ConveyorDataSO data;
+    [SerializeField] private MovableEventChanelSO onItemExited;
     
     private readonly List<IMovable> _active = new List<IMovable>();
     private readonly List<IMovable> _queue = new List<IMovable>();
@@ -30,7 +31,11 @@ public class ConveyorManager : MonoBehaviour
         for (int i = _active.Count - 1; i >= 0; i--)
         {
             IMovable movable = _active[i];
-            movable.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
+            bool reachedExit = movable.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
+            if (!reachedExit || _isEndgameRush) continue;
+
+            _active.RemoveAt(i);
+            onItemExited?.EventRaise(movable);
         }
 
         TryDispatchFromQueue();
@@ -49,18 +54,6 @@ public class ConveyorManager : MonoBehaviour
         }
 
         return true;
-    }
-
-    public void HandleFollowerLap(IMovable unit)
-    {
-        if (unit == null) return;
-        if (_isEndgameRush) return;
-        
-        _active.Remove(unit);
-        
-        //TODO : Băn sự kiện đưa ynit này xuống waitline
-        
-        TryDispatchFromQueue();
     }
 
     private void AddToQueue(IMovable unit)
