@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class SlimeMove : IMovable
+public class SlimeMovement : IMovable, IDisposable
 {
     private readonly Transform _transform;
     
@@ -12,13 +12,19 @@ public class SlimeMove : IMovable
     private float _splineLength;
     private float _exitProgress;
     private float _startProgress;
+    private bool _isAttached;
     
     private Tween _jumpTween;
     private Tween _dropTween;
+    private bool _disposed;
     
+    public GameObject GameObject => _transform != null ? _transform.gameObject : null;
+    public Transform Transform => _transform;
+    public bool IsAttached => _isAttached;
+    public Action OnAccepted { get; set; }
     public float Progress => _splineLength > 0.001f ? _distance / _splineLength : 0f;
 
-    public SlimeMove(Transform transform)
+    public SlimeMovement(Transform transform)
     {
         _transform = transform;
     }
@@ -63,6 +69,7 @@ public class SlimeMove : IMovable
         _jumpTween?.Kill();
         _jumpTween = _transform.DOJump(targetPos, jumpPower: 1.2f, numJumps: 1, duration: duration)
             .SetEase(Ease.OutQuad)
+            .SetLink(_transform.gameObject)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -71,6 +78,7 @@ public class SlimeMove : IMovable
         _dropTween?.Kill();
         _dropTween = _transform.DOMove(targetPos, duration)
             .SetEase(Ease.OutBounce)
+            .SetLink(_transform.gameObject)
             .OnComplete(() => onComplete?.Invoke());
     }
 
@@ -80,6 +88,7 @@ public class SlimeMove : IMovable
         _startProgress = Mathf.Clamp01(startProgress);
         _exitProgress = Mathf.Clamp(Mathf.Max(_startProgress, exitProgress), _startProgress, 1f);
         _distance = _startProgress * _splineLength;
+        _isAttached = true;
     }
 
     private void HandleEndConveyor(bool isLooping = false)
@@ -92,5 +101,16 @@ public class SlimeMove : IMovable
         {
             _distance = _exitProgress *  _splineLength;
         }
+    }
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+        _disposed = true;
+
+        _jumpTween?.Kill();
+        _dropTween?.Kill();
+        _jumpTween = null;
+        _dropTween = null;
     }
 }

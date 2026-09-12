@@ -11,11 +11,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/PlayerInput.inputactions" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/PlayerInput.inputactions.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor/SO_ConveyorData.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor/SO_ConveyorData.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events/SO_Movable.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events/SO_Movable.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Conveyor.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/Level1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/Level1.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/GridData.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/Grid1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/GridData/Grid1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/Grid1.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/GridData/Grid1.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/WaitLine.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/GridData/WaitLine.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/WaitLine.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/GridData/WaitLine.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SelectEvent.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SelectEvent/SO_Selection.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events/SO_Selection.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SelectEvent/SO_Selection.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events/SO_Selection.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SpawnData.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/SpawnData.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SpawnData/SpawnData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/SpawnData/SpawnData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SpawnData/SpawnData.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/SpawnData/SpawnData.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SpawnData/SpawnTexture.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/SpawnData/SpawnTexture.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SpawnData/SpawnTexture/test.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/SpawnData/SpawnTexture/test.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/SpawnData/SpawnTexture/test.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/SpawnData/SpawnTexture/test.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Coeveyor.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Coeveyor.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Conveyor.unity.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Grid.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Grid.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/EventChannel/Payload/EventChanelSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/EventChannel/Payload/EventChanelSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/EventChannel/Payload/MovableEventChanelSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/MovableEventChanelSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/EventChannel/Payload/MovableEventChanelSO.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/MovableEventChanelSO.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/Interface/IMovable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/Interface/IMovable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/SelectionEventChannel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/SelectionEventChannel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/ConveyorDataSO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/ConveyorDataSO.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/ConveyorManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/ConveyorManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/SlimeMove.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/SlimeMove.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/Grid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/Grid.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +63,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Factories/Assets/_Project/Script/Feat/Convenyor/Scripts/Logic/ConveyorFollower.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Factories/Assets/_Project/Script/Feat/Convenyor/Scripts/Logic/SplineMover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/SelectionEventChannel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Test/SlimeMovementTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridDataSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" root0="FORCE_HIGHLIGHTING" />
@@ -37,61 +77,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0850130385334104E-4" />
-      <entry key="MS500" value="0.16109682881062692" />
-      <entry key="S2" value="0.6335366559195174" />
-      <entry key="S5" value="0.8332797002250587" />
-      <entry key="S10" value="0.9777285219633982" />
-      <entry key="S30" value="7.915915709174336" />
-      <entry key="S60" value="28.08979205259987" />
-      <entry key="M2" value="57.4575454988554" />
-      <entry key="M5" value="90.56106515969802" />
-      <entry key="M10" value="105.8522474581886" />
-      <entry key="M15" value="111.55775749942228" />
-      <entry key="M30" value="117.59987214613663" />
-      <entry key="H1" value="120.753790818174" />
-      <entry key="H2" value="122.36517984614329" />
-      <entry key="H4" value="123.17963830240748" />
-      <entry key="D1" value="123.86286115859541" />
-      <entry key="W1" value="123.98039862433671" />
+      <entry key="MS100" value="1.0779200717722446" />
+      <entry key="MS500" value="3.058983880548708" />
+      <entry key="S2" value="7.617410559768846" />
+      <entry key="S5" value="11.237262361873933" />
+      <entry key="S10" value="13.81781402344798" />
+      <entry key="S30" value="19.816311354853255" />
+      <entry key="S60" value="26.79911998597147" />
+      <entry key="M2" value="35.678747577111885" />
+      <entry key="M5" value="46.431434743854474" />
+      <entry key="M10" value="59.99087752349227" />
+      <entry key="M15" value="75.30421693647277" />
+      <entry key="M30" value="110.35412714966121" />
+      <entry key="H1" value="143.10279710642945" />
+      <entry key="H2" value="165.7426153607732" />
+      <entry key="H4" value="179.08740255228494" />
+      <entry key="D1" value="191.3979730098295" />
+      <entry key="W1" value="193.62532009096014" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000001932" />
-      <entry key="S10" value="1.0000006776815193" />
-      <entry key="S30" value="1.017778208775529" />
-      <entry key="S60" value="1.2301766142621497" />
-      <entry key="M2" value="1.8303025913859012" />
-      <entry key="M5" value="2.794250319439492" />
-      <entry key="M10" value="3.320001015321823" />
-      <entry key="M15" value="3.5275287445251213" />
-      <entry key="M30" value="3.753639808078994" />
-      <entry key="H1" value="3.874178963815264" />
-      <entry key="H2" value="3.936415000443924" />
-      <entry key="H4" value="3.9680370653999835" />
-      <entry key="D1" value="3.9946490171347504" />
-      <entry key="W1" value="3.999234988315864" />
+      <entry key="MS100" value="6.663168484481541E-164" />
+      <entry key="MS500" value="2.4462615074042246E-33" />
+      <entry key="S2" value="1.0315630855756651E-8" />
+      <entry key="S5" value="9.571393008950865E-4" />
+      <entry key="S10" value="0.04730392590804837" />
+      <entry key="S30" value="1.136171775545742" />
+      <entry key="S60" value="3.4933268481327002" />
+      <entry key="M2" value="6.742399775844735" />
+      <entry key="M5" value="10.440572634829627" />
+      <entry key="M10" value="12.726296289701814" />
+      <entry key="M15" value="14.183303040153685" />
+      <entry key="M30" value="16.7696477313472" />
+      <entry key="H1" value="18.898789611587297" />
+      <entry key="H2" value="20.300096786534127" />
+      <entry key="H4" value="21.108537074191545" />
+      <entry key="D1" value="21.845262737568408" />
+      <entry key="W1" value="21.97773838248873" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.0013426072032871352" />
-      <entry key="MS500" value="0.36308390239769694" />
-      <entry key="S2" value="1.276284166242347" />
-      <entry key="S5" value="1.6680548721005484" />
-      <entry key="S10" value="1.8902212388604984" />
-      <entry key="S30" value="8.887506727089294" />
-      <entry key="S60" value="29.266170731246465" />
-      <entry key="M2" value="59.23320832405102" />
-      <entry key="M5" value="93.31907529059852" />
-      <entry key="M10" value="109.15056065945488" />
-      <entry key="M15" value="115.06991787276345" />
-      <entry key="M30" value="121.34533985457514" />
-      <entry key="H1" value="124.623755176574" />
-      <entry key="H2" value="126.2994545469321" />
-      <entry key="H4" value="127.14659685916112" />
-      <entry key="D1" value="127.85732925393113" />
-      <entry key="W1" value="127.97960773789593" />
+      <entry key="MS100" value="1.0260328488732775" />
+      <entry key="MS500" value="3.0210513679449953" />
+      <entry key="S2" value="7.501459847251877" />
+      <entry key="S5" value="11.065063354251992" />
+      <entry key="S10" value="13.66974089042466" />
+      <entry key="S30" value="20.71033774216957" />
+      <entry key="S60" value="30.038129118069545" />
+      <entry key="M2" value="42.20435200806223" />
+      <entry key="M5" value="56.743023911994285" />
+      <entry key="M10" value="72.63912598078782" />
+      <entry key="M15" value="89.42986421605707" />
+      <entry key="M30" value="127.09011333264112" />
+      <entry key="H1" value="161.98281194595918" />
+      <entry key="H2" value="186.03269180018054" />
+      <entry key="H4" value="200.1907477663394" />
+      <entry key="D1" value="213.24234292162438" />
+      <entry key="W1" value="215.60293022111873" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -115,7 +155,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/Grid&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;merge/merge#1&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -174,6 +214,10 @@
       <updated>1788938835942</updated>
       <workItem from="1788938839876" duration="683000" />
       <workItem from="1789045539990" duration="1174000" />
+      <workItem from="1789242885245" duration="762000" />
+      <workItem from="1789244309888" duration="39000" />
+      <workItem from="1789244627909" duration="1278000" />
+      <workItem from="1789251304846" duration="2852000" />
     </task>
     <servers />
   </component>

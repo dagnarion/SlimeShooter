@@ -1,16 +1,28 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SelectHandler : MonoBehaviour
 {
-    [SerializeField] private SelectionEventChannel selectionEvent;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private SelectionEventChannel selectionEvent;
+    [SerializeField] private InputActionReference clickAction;
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            selectionEvent?.EventRaise(mainCamera.ScreenToWorldPoint(Input.mousePosition));
-        }
+        clickAction.action.Enable();
+        clickAction.action.performed += OnClick;
+    }
+
+    private void OnDisable()
+    {
+        clickAction.action.performed -= OnClick;
+        clickAction.action.Disable();
+    }
+
+    private void OnClick(InputAction.CallbackContext ctx)
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        selectionEvent?.EventRaise(mainCamera.ScreenToWorldPoint(mousePos));
     }
 }

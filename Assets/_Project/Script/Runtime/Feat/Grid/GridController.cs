@@ -13,6 +13,7 @@ public class GridController : MonoBehaviour
     [SerializeField] private Grid gridComponent;
     [SerializeField] private Grid waitLineGridComponent;
     [SerializeField] private WaitLine waitLine;
+    [SerializeField] private MovableEventChanelSO onAddMovable;
     
     [SerializeField] private Transform holder;
     [SerializeField] private GameObject slimePrefab;
@@ -50,14 +51,21 @@ public class GridController : MonoBehaviour
 
     private void Choose(Vector3 pos)
     {
-       if(!TryGetSlime(pos)) return;
+       if (waitLine != null && waitLine.IsGameOver) return;
+       if (!TryGetSlime(pos)) return;
+       
        Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
        GameObject gameObject = grid.GetValue(position);
-       // test
-       if(waitLine.IsFull()) return;
-       waitLine.Add(gameObject);
-       //Destroy(gameObject);
-       Rearrange(position);
+       if (gameObject == null) return;
+
+       IMovable movable = new SlimeMovement(gameObject.transform);
+       movable.OnAccepted = () =>
+       {
+           grid.SetValue(position, null);
+           Rearrange(position);
+       };
+
+       onAddMovable?.EventRaise(movable);
     }
 
     private void Rearrange(Vector2Int pos)
@@ -75,8 +83,10 @@ public class GridController : MonoBehaviour
     
     private bool TryGetSlime(Vector3 pos)
     {
+        if (grid == null) return false;
         Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
         if(!grid.IsOnGrid(position)) return false;
+        if(grid.GetValue(position) == null) return false;
         if(grid.GetValue(position+new Vector2Int(0,1)) != null) return false;
         return true;
     }
