@@ -65,7 +65,6 @@ public class WaitLine : MonoBehaviour
       if(position.y >= data.GridSize.y || position.y < 0) return;
       if(position.x >= data.GridSize.x || position.x < 0) return;
       if(holder[position.x] == null) return;
-      Debug.Log(position);
       GameObject obj = holder[position.x];
       holder[position.x] = null;
       Destroy(obj);

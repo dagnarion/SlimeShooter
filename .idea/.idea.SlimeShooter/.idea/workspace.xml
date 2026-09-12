@@ -11,11 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/Level1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/GridData/Level1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Grid.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Grid.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,6 +170,7 @@
       <updated>1788938835942</updated>
       <workItem from="1788938839876" duration="683000" />
       <workItem from="1789045539990" duration="1174000" />
+      <workItem from="1789197462730" duration="630000" />
     </task>
     <servers />
   </component>
