@@ -22,7 +22,7 @@ public abstract class EventChanelSO<T> : ScriptableObject
             _isRunning = true;
             if (_eventRaised.Count == 0 && OnEventRaised == null)
             {
-                Debug.Log("EventRaise called but no listeners or subscribers.");
+                //Debug.Log("EventRaise called but no listeners or subscribers.");
                 return;
             }
             if (_eventRaised != null)
@@ -36,7 +36,7 @@ public abstract class EventChanelSO<T> : ScriptableObject
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogError("RaiseEvent called but exception " + ex.Message);
+                        //Debug.LogError("RaiseEvent called but exception " + ex.Message);
                     }
                 }
             }
@@ -52,7 +52,7 @@ public abstract class EventChanelSO<T> : ScriptableObject
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("RaiseEvent called but exception: " + e.Message);
+                        //Debug.LogError("RaiseEvent called but exception: " + e.Message);
                     }
                 }
             }
