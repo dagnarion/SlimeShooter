@@ -37,7 +37,7 @@ public class SlimeShooter : MonoBehaviour
         }
         if(transform.rotation == Quaternion.Euler(0,0,0) || transform.rotation == Quaternion.Euler(0,90,0) || transform.rotation == Quaternion.Euler(0,180,0) || transform.rotation == Quaternion.Euler(0, -90, 0))
         {
-            Physics.Raycast(transform.position,-transform.forward,out hit,RaycastLength,PixelLayer);
+            Physics.Raycast(transform.position,transform.forward,out hit,RaycastLength,PixelLayer);
             if (hit.transform != null && previousHit != hit.transform)
             {
                 previousHit = hit.transform;

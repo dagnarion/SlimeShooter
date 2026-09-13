@@ -25,7 +25,7 @@ public class SlimeBullet : MonoBehaviour
         transform.position = pos;
         transform.rotation = rotation;
         Physics.SyncTransforms();
-        rb.linearVelocity = -transform.forward*speed;
+        rb.linearVelocity = transform.forward*speed;
         Color = color;
     }
 
