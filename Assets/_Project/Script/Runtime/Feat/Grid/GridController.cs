@@ -3,23 +3,34 @@ using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 public class GridController : MonoBehaviour
 {
+    #region Grid
     [SerializeField] private GridDataSO gridData;
     [SerializeField] private GridDataSO waitLinedata;
+    
     [SerializeField] private GridRender gridRender;
     [SerializeField] private GridRender waitLineRender;
+    
     [SerializeField] private Grid gridComponent;
     [SerializeField] private Grid waitLineGridComponent;
     [SerializeField] private WaitLine waitLine;
-    [SerializeField] private MovableEventChanelSO onAddMovable;
-    
-    [SerializeField] private Transform holder;
-    [SerializeField] private GameObject slimePrefab;
-    [SerializeField] private SelectionEventChannel selectionEventChannel;
-    private Grid<GameObject> grid;
+    private Grid<IGamePices> grid;
+    #endregion
 
+    #region Slime
+    [SerializeField] private SlimeDataSO[] slimeDataSos; // test
+    [SerializeField] private Transform holder;
+    [SerializeField] private SlimeController slimePrefab; // tách ra thành một factory spawn game pices
+    #endregion
+
+    #region Event
+    [SerializeField] private SelectionEventChannel selectionEventChannel;
+    [SerializeField] private MovableEventChanelSO onAddMovable;
+    #endregion
+    
     private void OnEnable()
     {
         selectionEventChannel.OnEventRaised += Choose;
@@ -41,10 +52,11 @@ public class GridController : MonoBehaviour
         holder.Clear();
         gridRender.Init(gridComponent,gridData);
         waitLineRender.Init(waitLineGridComponent,waitLinedata);
-        grid = new Grid<GameObject>(gridData.GridSize, Pos =>
+        grid = new Grid<IGamePices>(gridData.GridSize, Pos =>
         {
-            GameObject slime = Instantiate(slimePrefab,gridComponent.GetCellCenterWorld(new Vector3Int(Pos.x,Pos.y,0)),Quaternion.identity,holder);
-            return slime;
+            SlimeController slime = Instantiate(slimePrefab,gridComponent.GetCellCenterWorld(new Vector3Int(Pos.x,Pos.y,0)),Quaternion.identity,holder); // sau refactor
+            slime.Init(slimeDataSos[Random.Range(0,slimeDataSos.Length)]);
+            return slime as IGamePices;
         });
         waitLine.Init(waitLineGridComponent,waitLinedata);
     }
@@ -53,18 +65,18 @@ public class GridController : MonoBehaviour
     {
        if (waitLine != null && waitLine.IsGameOver) return;
        if (!TryGetSlime(pos)) return;
-       
        Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
-       GameObject gameObject = grid.GetValue(position);
-       if (gameObject == null) return;
-
-       IMovable movable = new SlimeMovement(gameObject.transform);
-       movable.OnAccepted = () =>
+       
+       IGamePices slime = grid.GetValue(position);
+       if (slime == null) return;
+       
+       IGamePices movable = slime;
+       movable.Movement.OnAccepted = () =>
        {
            grid.SetValue(position, null);
            Rearrange(position);
        };
-
+       
        onAddMovable?.EventRaise(movable);
     }
 
@@ -72,11 +84,11 @@ public class GridController : MonoBehaviour
     {
         for (int y = pos.y; y >= 0; y--)
         {
-            GameObject nextValue = grid.GetValue(new Vector2Int(pos.x, y - 1));
+            IGamePices nextValue = grid.GetValue(new Vector2Int(pos.x, y - 1));
             grid.SetValue(new Vector2Int(pos.x,y),nextValue);
             if (nextValue != null)
             {
-                nextValue.transform.DOMove( gridComponent.GetCellCenterWorld(new Vector3Int(pos.x, y, 0)),0.5f);
+                nextValue.Transform.DOMove( gridComponent.GetCellCenterWorld(new Vector3Int(pos.x, y, 0)),0.5f);
             }
         }
     }

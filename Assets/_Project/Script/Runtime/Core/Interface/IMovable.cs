@@ -4,7 +4,7 @@ using UnityEngine.Splines;
 
 public interface IMovable
 {
-    public GameObject GameObject { get; }
+    public GameObject owner { get; }
     public Transform Transform { get; }
     public bool IsAttached { get; }
     public Action OnAccepted { get; set; }

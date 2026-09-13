@@ -48,6 +48,7 @@ public class PoolManager : MonoBehaviour
             defaultCapacity: 500,
             maxSize: 1000
         );
+        
         SlimeShooterPool = new ObjectPool<SlimeShooter>
         (
             createFunc: () =>

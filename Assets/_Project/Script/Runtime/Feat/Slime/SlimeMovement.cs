@@ -17,8 +17,8 @@ public class SlimeMovement : IMovable, IDisposable
     private Tween _jumpTween;
     private Tween _dropTween;
     private bool _disposed;
-    
-    public GameObject GameObject => _transform != null ? _transform.gameObject : null;
+
+    public GameObject owner => _transform != null ? _transform.gameObject : null;
     public Transform Transform => _transform;
     public bool IsAttached => _isAttached;
     public Action OnAccepted { get; set; }

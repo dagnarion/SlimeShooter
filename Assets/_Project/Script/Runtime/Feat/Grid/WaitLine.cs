@@ -14,7 +14,7 @@ public class WaitLine : MonoBehaviour
 
     private GridDataSO data;
     private Grid grid;
-    private GameObject[] holder;
+    private IGamePices[] holder;
 
     private void OnEnable()
     {
@@ -45,7 +45,7 @@ public class WaitLine : MonoBehaviour
 
     public void Init(Grid grid,GridDataSO data)
     {
-        holder = new GameObject[data.GridSize.x];
+        holder = new IGamePices[data.GridSize.x];
         this.data = data;
         this.grid = grid;
         grid.cellSize = data.CellSize;
@@ -56,30 +56,30 @@ public class WaitLine : MonoBehaviour
     {
         for (int x = pos; x < holder.Length - 1; x++) 
         {
-            GameObject next = holder[x + 1];
+            IGamePices next = holder[x + 1];
             holder[x] = next;
         
             if (next != null)
             {
-                next.transform.DOMove(grid.GetCellCenterWorld(new Vector3Int(x, 0, 0)), 0.5f);
+                next.Transform.DOMove(grid.GetCellCenterWorld(new Vector3Int(x, 0, 0)), 0.5f);
             }
         }
         holder[holder.Length - 1] = null;
     }
     
-    private void HandleItemExited(IMovable movable)
+    private void HandleItemExited(IGamePices movable)
     {
-        if (movable == null || movable.GameObject == null) return;
+        if (movable == null || movable == null) return;
         
         if (movable is IDisposable disposable)
         {
             disposable.Dispose();
         }
 
-        Add(movable.GameObject);
+        Add(movable);
     }
     
-    public bool Add(GameObject obj)
+    public bool Add(IGamePices obj)
     {
         if (IsGameOver || obj == null) return false;
         
@@ -98,10 +98,10 @@ public class WaitLine : MonoBehaviour
                 holder[x] = obj;
                 Vector3 targetPos = grid.GetCellCenterWorld(new Vector3Int(x, 0, 0));
                 
-                obj.transform.DOKill();
-                obj.transform.DOJump(targetPos, jumpPower: 2f, numJumps: 1, duration: 0.4f)
+                obj.Transform.DOKill();
+                obj.Transform.DOJump(targetPos, jumpPower: 2f, numJumps: 1, duration: 0.4f)
                     .SetEase(Ease.OutQuad);
-                obj.transform.DORotate(Vector3.zero, 0.4f);
+                obj.Transform.DORotate(Vector3.zero, 0.4f);
                 return true;
             }
         }
@@ -118,14 +118,14 @@ public class WaitLine : MonoBehaviour
         if (position.x >= data.GridSize.x || position.x < 0) return;
         if (holder[position.x] == null) return;
 
-        GameObject obj = holder[position.x];
+        IGamePices obj = holder[position.x];
 
         if (onAddMovable != null)
         {
-            obj.transform.DOKill();
+            obj.Transform.DOKill();
             bool accepted = false;
-            IMovable movable = new SlimeMovement(obj.transform);
-            movable.OnAccepted = () =>
+            IGamePices movable = obj;
+            movable.Movement.OnAccepted = () =>
             {
                 accepted = true;
                 holder[position.x] = null;
@@ -136,15 +136,15 @@ public class WaitLine : MonoBehaviour
 
             if (!accepted)
             {
-                obj.transform.position = grid.GetCellCenterWorld(new Vector3Int(position.x, 0, 0));
+                obj.Transform.position = grid.GetCellCenterWorld(new Vector3Int(position.x, 0, 0));
             }
         }
-        else
-        {
-            holder[position.x] = null;
-            Destroy(obj);
-            ReArrange(position.x);
-        }
+        // else
+        // {
+        //     holder[position.x] = null;
+        //     // Destroy(obj);
+        //     ReArrange(position.x);
+        // }
     }
 
     public bool IsFull()

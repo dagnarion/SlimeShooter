@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -6,11 +7,16 @@ public class SlimeBullet : MonoBehaviour
 {
     ObjectPool<SlimeBullet> SlimeBulletPool;
     Rigidbody rb;
-
+    private bool isReleased;
     public Color32 Color;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
+        isReleased = false;
     }
 
     public void Init(ObjectPool<SlimeBullet> pool) => SlimeBulletPool = pool;
@@ -32,9 +38,16 @@ public class SlimeBullet : MonoBehaviour
                 if (Color.Equals(pixel.GetColor()))
                 {
                     pixel.Break();
-                    SlimeBulletPool.Release(this);
+                    Release();
                 }
             }
         }
+    }
+
+    private void Release()
+    {
+        if(isReleased) return;
+        isReleased = true;
+        SlimeBulletPool.Release(this);
     }
 }

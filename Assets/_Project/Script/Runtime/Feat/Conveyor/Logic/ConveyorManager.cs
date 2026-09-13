@@ -11,8 +11,8 @@ public class ConveyorManager : MonoBehaviour
     [SerializeField] private MovableEventChanelSO onItemExited;
     [SerializeField] private bool _isEndgameRush = false;
     
-    private readonly List<IMovable> _active = new List<IMovable>();
-    private readonly List<IMovable> _queue = new List<IMovable>();
+    private readonly List<IGamePices> _active = new List<IGamePices>();
+    private readonly List<IGamePices> _queue = new List<IGamePices>();
 
     private int _currentBeltCapacity;
 
@@ -41,7 +41,7 @@ public class ConveyorManager : MonoBehaviour
         }
     }
 
-    private void HandleItemEntered(IMovable unit)
+    private void HandleItemEntered(IGamePices unit)
     {
         AddItemToConveyor(unit);
     }
@@ -62,8 +62,8 @@ public class ConveyorManager : MonoBehaviour
 
         for (int i = _active.Count - 1; i >= 0; i--)
         {
-            IMovable movable = _active[i];
-            bool reachedExit = movable.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
+            IGamePices movable = _active[i];
+            bool reachedExit = movable.Movement.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
             if (!reachedExit || _isEndgameRush) continue;
 
             _active.RemoveAt(i);
@@ -73,7 +73,7 @@ public class ConveyorManager : MonoBehaviour
         TryDispatchFromQueue();
     }
 
-    public bool AddItemToConveyor(IMovable unit)
+    public bool AddItemToConveyor(IGamePices unit)
     {
         if (unit == null || !splineContainer || !CanAcceptToConveyor()) return false;
         if (_queue.Count == 0 && IsEntranceClear())
@@ -85,27 +85,27 @@ public class ConveyorManager : MonoBehaviour
             AddToQueue(unit);
         }
 
-        unit.OnAccepted?.Invoke();
+        unit.Movement.OnAccepted?.Invoke();
         return true;
     }
 
-    private void AddToQueue(IMovable unit)
+    private void AddToQueue(IGamePices unit)
     {
         _queue.Add(unit);
         Vector3 entryPosition = GetBeltEntry();
         Vector3 newStackPosition = entryPosition + Vector3.up * (data.ItemHeight * _queue.Count);
         
-        unit.PlayJumpTo(newStackPosition, data.DropDuration);
+        unit.Movement.PlayJumpTo(newStackPosition, data.DropDuration);
     }
 
-    private void AddToBelt(IMovable unit)
+    private void AddToBelt(IGamePices unit)
     {
         _active.Add(unit);
             
         Vector3 entryPosition = GetBeltEntry();
-        unit.PlayJumpTo(entryPosition, data.JumpDuration, () =>
+        unit.Movement.PlayJumpTo(entryPosition, data.JumpDuration, () =>
         {
-            unit.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
+            unit.Movement.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
         });
     }
     
@@ -119,9 +119,9 @@ public class ConveyorManager : MonoBehaviour
 
         Vector3 entryPosition = GetBeltEntry();
         
-        unit.PlayDropTo(entryPosition, data.JumpDuration, () =>
+        unit.Movement.PlayDropTo(entryPosition, data.JumpDuration, () =>
         {
-            unit.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
+            unit.Movement.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
         });
         
         RestackQueue();
@@ -147,8 +147,8 @@ public class ConveyorManager : MonoBehaviour
 
         foreach (var unit in _active)
         {
-            if (!unit.IsAttached) return false;
-            float dist = unit.GetDistanceOnBelt();
+            if (!unit.Movement.IsAttached) return false;
+            float dist = unit.Movement.GetDistanceOnBelt();
 
             // 1. Kiểm tra phía trước lối vào (unit đang rời khỏi lối vào)
             float distAhead = dist - entryDist;
@@ -177,7 +177,7 @@ public class ConveyorManager : MonoBehaviour
         {
             Vector3 newStackPosition = entryPosition + Vector3.up * (data.ItemHeight * (i + 1));
             var unit = _queue[i];
-            unit.PlayDropTo(newStackPosition, data.DropDuration);
+            unit.Movement.PlayDropTo(newStackPosition, data.DropDuration);
         }
     }
 }
