@@ -10,13 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor/SO_ConveyorData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor/SO_ConveyorData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Conveyor.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Conveyor.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Logic/ConveyorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Logic/ConveyorManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" afterDir="false" />
-    </list>
+    <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -181,6 +175,7 @@
       <workItem from="1789244309888" duration="39000" />
       <workItem from="1789244627909" duration="1278000" />
       <workItem from="1789251304846" duration="5856000" />
+      <workItem from="1789263942582" duration="731000" />
     </task>
     <servers />
   </component>
