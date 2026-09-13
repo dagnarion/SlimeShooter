@@ -54,7 +54,7 @@ public class SlimeMovement : IMovable, IDisposable
         Vector3 inwardDirection = Vector3.Cross(up, tangent);
         if (inwardDirection.sqrMagnitude > 0.001f)
         {
-            _transform.rotation = Quaternion.LookRotation(inwardDirection, up);
+            _transform.rotation = Quaternion.LookRotation(-inwardDirection, up);
         }
         return completedLap;
     }
