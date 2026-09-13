@@ -4,5 +4,5 @@ using UnityEngine;
 public class SpawnDataSO : ScriptableObject
 {
     public Texture2D SpawnTexture;
-
+    public float cellSize = 1f;
 }

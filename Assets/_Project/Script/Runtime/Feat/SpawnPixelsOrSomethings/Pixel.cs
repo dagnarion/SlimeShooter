@@ -7,6 +7,7 @@ public class Pixel : MonoBehaviour
     [SerializeField] MeshRenderer meshRenderer;
     Color32 Color;
     ObjectPool<Pixel> PixelPool;
+    public bool HasBeenShot = false;
     public void Init(ObjectPool<Pixel> pool) => PixelPool = pool;
     public void Setup(Vector3 pos, Quaternion rotation,float scale, Color32 color)
     {
@@ -15,6 +16,10 @@ public class Pixel : MonoBehaviour
         transform.localScale = Vector3.one * scale;
         Color = color;
         meshRenderer.material.color = color;
+    }
+    private void OnEnable()
+    {
+        HasBeenShot = false;
     }
     public Color32 GetColor()
     {

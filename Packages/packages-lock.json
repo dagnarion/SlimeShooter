@@ -23,6 +23,15 @@
       "dependencies": {},
       "hash": "55423389e8d443f18090720891af52d9952d6e5e"
     },
+    "com.nomnom.raycast-visualization": {
+      "version": "https://github.com/nomnomab/RaycastVisualization.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0"
+      },
+      "hash": "3cd5d376ede023e7ee52a22033ab257ef1610638"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.13",
       "depth": 0,

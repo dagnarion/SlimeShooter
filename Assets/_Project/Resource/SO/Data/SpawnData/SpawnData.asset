@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1762f868f174095419a33a3d36deaeec, type: 3}
   m_Name: SpawnData
   m_EditorClassIdentifier: Assembly-CSharp::SpawnDataSO
-  gridData: {fileID: 11400000, guid: 01e6eb61b751c4446b7e36f02ecfc93a, type: 2}
   SpawnTexture: {fileID: 2800000, guid: edd279eaa57fcc84fbfac4a74ca0cae1, type: 3}
+  cellSize: 0.5
