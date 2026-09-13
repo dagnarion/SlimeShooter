@@ -1752,7 +1752,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 08a9a19dfcaa2f443b3d8e457e1e6cf6, type: 2}
   onItemEntered: {fileID: 11400000, guid: 83562c030b30455a9a8873eaaa6555da, type: 2}
   onItemExited: {fileID: 11400000, guid: cdb03ee39ab2d624694a1bd4e776f30b, type: 2}
-  _isEndgameRush: 1
+  _isEndgameRush: 0
 --- !u!1 &1664909889
 GameObject:
   m_ObjectHideFlags: 0
