@@ -1,5 +1,5 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "EventChannel/SelectionEvent")]
+[CreateAssetMenu(menuName = "EventChannelSO/SelectionEvent")]
 public class SelectionEventChannel : EventChanelSO<Vector3>
 { }

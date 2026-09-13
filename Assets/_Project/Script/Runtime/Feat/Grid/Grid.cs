@@ -47,7 +47,7 @@ public class Grid<T>
 
     public bool IsOnGrid(Vector2Int position)
     {
-        return Mathf.Abs(position.x) <= gridSize.x && 
-               Mathf.Abs(position.y) <= gridSize.y;
+        return position.x >= 0 && position.x < gridSize.x &&
+               position.y >= 0 && position.y < gridSize.y;
     }
 }

@@ -7,18 +7,51 @@ public class ConveyorManager : MonoBehaviour
 {
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private ConveyorDataSO data;
+    [SerializeField] private MovableEventChanelSO onItemEntered;
+    [SerializeField] private MovableEventChanelSO onItemExited;
+    [SerializeField] private bool _isEndgameRush = false;
     
     private readonly List<IMovable> _active = new List<IMovable>();
     private readonly List<IMovable> _queue = new List<IMovable>();
 
-    private bool _isEndgameRush = false;
     private int _currentBeltCapacity;
-    private int _currentQueueCapacity;
+
+    public bool IsEndgameRush
+    {
+        get => _isEndgameRush;
+        set => _isEndgameRush = value;
+    }
+
+    public MovableEventChanelSO OnItemEntered => onItemEntered;
+    public MovableEventChanelSO OnItemExited => onItemExited;
+
+    private void OnEnable()
+    {
+        if (onItemEntered != null)
+        {
+            onItemEntered.OnEventRaised += HandleItemEntered;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (onItemEntered != null)
+        {
+            onItemEntered.OnEventRaised -= HandleItemEntered;
+        }
+    }
+
+    private void HandleItemEntered(IMovable unit)
+    {
+        AddItemToConveyor(unit);
+    }
 
     private void Start()
     {
-        _currentBeltCapacity = data.MaxBeltCapacity;
-        _currentQueueCapacity = data.MaxQueueCapacity;
+        if (data != null)
+        {
+            _currentBeltCapacity = data.MaxBeltCapacity;
+        }
     }
 
     private void Update()
@@ -30,7 +63,11 @@ public class ConveyorManager : MonoBehaviour
         for (int i = _active.Count - 1; i >= 0; i--)
         {
             IMovable movable = _active[i];
-            movable.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
+            bool reachedExit = movable.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
+            if (!reachedExit || _isEndgameRush) continue;
+
+            _active.RemoveAt(i);
+            onItemExited?.EventRaise(movable);
         }
 
         TryDispatchFromQueue();
@@ -38,7 +75,7 @@ public class ConveyorManager : MonoBehaviour
 
     public bool AddItemToConveyor(IMovable unit)
     {
-        if (!splineContainer || !CanAcceptToConveyor()) return false;
+        if (unit == null || !splineContainer || !CanAcceptToConveyor()) return false;
         if (_queue.Count == 0 && IsEntranceClear())
         {
             AddToBelt(unit);
@@ -48,19 +85,8 @@ public class ConveyorManager : MonoBehaviour
             AddToQueue(unit);
         }
 
+        unit.OnAccepted?.Invoke();
         return true;
-    }
-
-    public void HandleFollowerLap(IMovable unit)
-    {
-        if (unit == null) return;
-        if (_isEndgameRush) return;
-        
-        _active.Remove(unit);
-        
-        //TODO : Băn sự kiện đưa ynit này xuống waitline
-        
-        TryDispatchFromQueue();
     }
 
     private void AddToQueue(IMovable unit)
@@ -93,7 +119,7 @@ public class ConveyorManager : MonoBehaviour
 
         Vector3 entryPosition = GetBeltEntry();
         
-        unit.PlayJumpTo(entryPosition, data.JumpDuration, () =>
+        unit.PlayDropTo(entryPosition, data.JumpDuration, () =>
         {
             unit.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
         });
@@ -101,26 +127,40 @@ public class ConveyorManager : MonoBehaviour
         RestackQueue();
     }
 
-    private bool CanAcceptToConveyor()
+    public bool CanAcceptToConveyor()
     {
         if (!splineContainer) return false;
-        return (_active.Count + _queue.Count) <  _currentBeltCapacity;
+        int maxCapacity = _currentBeltCapacity > 0 ? _currentBeltCapacity : (data != null ? data.MaxBeltCapacity : 5);
+        return (_active.Count + _queue.Count) < maxCapacity;
     }
 
-    private bool IsEntranceClear()
+    public bool IsEntranceClear()
     {
+        if (!splineContainer || data == null) return false;
         float safeDistance = data.SafeDistance;
         float splineLength = splineContainer.CalculateLength();
-        float entryDist = splineLength + safeDistance;
-        
-        foreach(var unit in _active)
+        float entryDist = data.StartPointInConveyor * splineLength;
+        float exitDist = data.EndPointInConveyor * splineLength;
+
+        // Khoảng cách an toàn phía sau cần cộng thêm quãng đường unit sẽ di chuyển trong lúc unit mới đang jump/drop (0.5s)
+        float safeDistanceBehind = safeDistance + data.MoveSpeed * data.JumpDuration;
+
+        foreach (var unit in _active)
         {
+            if (!unit.IsAttached) return false;
             float dist = unit.GetDistanceOnBelt();
-            float diff = Mathf.Abs(dist - entryDist);
 
-            if (diff < safeDistance) return false;
+            // 1. Kiểm tra phía trước lối vào (unit đang rời khỏi lối vào)
+            float distAhead = dist - entryDist;
+            if (distAhead >= 0 && distAhead < safeDistance) return false;
+
+            // 2. Nếu đang loop, kiểm tra khoảng cách từ phía sau (unit đang tiến tới endpoint để loop về lối vào)
+            if (_isEndgameRush)
+            {
+                float distBehind = exitDist - dist;
+                if (distBehind >= 0 && distBehind < safeDistanceBehind) return false;
+            }
         }
-
         return true;
     }
 
@@ -137,8 +177,7 @@ public class ConveyorManager : MonoBehaviour
         {
             Vector3 newStackPosition = entryPosition + Vector3.up * (data.ItemHeight * (i + 1));
             var unit = _queue[i];
-            unit.PlayJumpTo(newStackPosition, data.DropDuration);
+            unit.PlayDropTo(newStackPosition, data.DropDuration);
         }
     }
-    
 }

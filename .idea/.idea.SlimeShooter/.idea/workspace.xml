@@ -11,6 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor/SO_ConveyorData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Data/Conveyor/SO_ConveyorData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Conveyor.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Conveyor.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Logic/ConveyorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Logic/ConveyorManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +26,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Factories/Assets/_Project/Script/Feat/Convenyor/Scripts/Logic/ConveyorFollower.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Factories/Assets/_Project/Script/Feat/Convenyor/Scripts/Logic/SplineMover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/SelectionEventChannel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Test/SlimeMovementTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridDataSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" root0="FORCE_HIGHLIGHTING" />
@@ -33,61 +40,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0850130385334104E-4" />
-      <entry key="MS500" value="0.16109682881062692" />
-      <entry key="S2" value="0.6335366559195174" />
-      <entry key="S5" value="0.8332797002250587" />
-      <entry key="S10" value="0.9777285219633982" />
-      <entry key="S30" value="7.915915709174336" />
-      <entry key="S60" value="28.08979205259987" />
-      <entry key="M2" value="57.4575454988554" />
-      <entry key="M5" value="90.56106515969802" />
-      <entry key="M10" value="105.8522474581886" />
-      <entry key="M15" value="111.55775749942228" />
-      <entry key="M30" value="117.59987214613663" />
-      <entry key="H1" value="120.753790818174" />
-      <entry key="H2" value="122.36517984614329" />
-      <entry key="H4" value="123.17963830240748" />
-      <entry key="D1" value="123.86286115859541" />
-      <entry key="W1" value="123.98039862433671" />
+      <entry key="MS100" value="8.86074155693719E-8" />
+      <entry key="MS500" value="0.0663195519404964" />
+      <entry key="S2" value="0.8526197665447165" />
+      <entry key="S5" value="1.4219551016401737" />
+      <entry key="S10" value="1.6864098947116655" />
+      <entry key="S30" value="2.1015326100992713" />
+      <entry key="S60" value="3.872104160097258" />
+      <entry key="M2" value="7.8447781965322" />
+      <entry key="M5" value="13.787936134799384" />
+      <entry key="M10" value="21.25675543921343" />
+      <entry key="M15" value="31.634871543599193" />
+      <entry key="M30" value="66.5209909918809" />
+      <entry key="H1" value="113.5404948566697" />
+      <entry key="H2" value="154.14087590372367" />
+      <entry key="H4" value="181.14492389709423" />
+      <entry key="D1" value="208.06433406933704" />
+      <entry key="W1" value="213.14001374250643" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000001932" />
-      <entry key="S10" value="1.0000006776815193" />
-      <entry key="S30" value="1.017778208775529" />
-      <entry key="S60" value="1.2301766142621497" />
-      <entry key="M2" value="1.8303025913859012" />
-      <entry key="M5" value="2.794250319439492" />
-      <entry key="M10" value="3.320001015321823" />
-      <entry key="M15" value="3.5275287445251213" />
-      <entry key="M30" value="3.753639808078994" />
-      <entry key="H1" value="3.874178963815264" />
-      <entry key="H2" value="3.936415000443924" />
-      <entry key="H4" value="3.9680370653999835" />
-      <entry key="D1" value="3.9946490171347504" />
-      <entry key="W1" value="3.999234988315864" />
+      <entry key="MS100" value="1.000002773232493" />
+      <entry key="MS500" value="1.0773743931773403" />
+      <entry key="S2" value="1.5274111585340306" />
+      <entry key="S5" value="1.774211692054992" />
+      <entry key="S10" value="1.8799177753913052" />
+      <entry key="S30" value="2.062948606065187" />
+      <entry key="S60" value="2.8825487560026897" />
+      <entry key="M2" value="4.669939411148835" />
+      <entry key="M5" value="7.227042916605069" />
+      <entry key="M10" value="9.459019031755588" />
+      <entry key="M15" value="11.574339190444125" />
+      <entry key="M30" value="16.70250005182676" />
+      <entry key="H1" value="22.15341053577982" />
+      <entry key="H2" value="26.32543540948354" />
+      <entry key="H4" value="28.940650158562544" />
+      <entry key="D1" value="31.45579577900008" />
+      <entry key="W1" value="31.921366567094427" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.0013426072032871352" />
-      <entry key="MS500" value="0.36308390239769694" />
-      <entry key="S2" value="1.276284166242347" />
-      <entry key="S5" value="1.6680548721005484" />
-      <entry key="S10" value="1.8902212388604984" />
-      <entry key="S30" value="8.887506727089294" />
-      <entry key="S60" value="29.266170731246465" />
-      <entry key="M2" value="59.23320832405102" />
-      <entry key="M5" value="93.31907529059852" />
-      <entry key="M10" value="109.15056065945488" />
-      <entry key="M15" value="115.06991787276345" />
-      <entry key="M30" value="121.34533985457514" />
-      <entry key="H1" value="124.623755176574" />
-      <entry key="H2" value="126.2994545469321" />
-      <entry key="H4" value="127.14659685916112" />
-      <entry key="D1" value="127.85732925393113" />
-      <entry key="W1" value="127.97960773789593" />
+      <entry key="MS100" value="4.830177558094817E-6" />
+      <entry key="MS500" value="0.18616136765242972" />
+      <entry key="S2" value="1.757419169198588" />
+      <entry key="S5" value="2.861785433767631" />
+      <entry key="S10" value="3.3799398211889833" />
+      <entry key="S30" value="4.08965152521783" />
+      <entry key="S60" value="6.687410738605593" />
+      <entry key="M2" value="12.448814495956235" />
+      <entry key="M5" value="20.969872093242923" />
+      <entry key="M10" value="30.682756165406158" />
+      <entry key="M15" value="43.17944040781978" />
+      <entry key="M30" value="83.1988056170807" />
+      <entry key="H1" value="135.67633149424137" />
+      <entry key="H2" value="180.45553144672925" />
+      <entry key="H4" value="210.07956178315683" />
+      <entry key="D1" value="239.51902831487945" />
+      <entry key="W1" value="245.06122032076132" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -111,7 +118,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/Grid&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;merge/merge#1&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -170,7 +177,10 @@
       <updated>1788938835942</updated>
       <workItem from="1788938839876" duration="683000" />
       <workItem from="1789045539990" duration="1174000" />
-      <workItem from="1789197462730" duration="630000" />
+      <workItem from="1789242885245" duration="762000" />
+      <workItem from="1789244309888" duration="39000" />
+      <workItem from="1789244627909" duration="1278000" />
+      <workItem from="1789251304846" duration="5856000" />
     </task>
     <servers />
   </component>
