@@ -15,7 +15,6 @@ public class ConveyorManager : MonoBehaviour
     private readonly List<IMovable> _queue = new List<IMovable>();
 
     private int _currentBeltCapacity;
-    private int _currentQueueCapacity;
 
     public bool IsEndgameRush
     {
@@ -47,22 +46,11 @@ public class ConveyorManager : MonoBehaviour
         AddItemToConveyor(unit);
     }
 
-    private void Awake()
-    {
-        InitCapacity();
-    }
-
     private void Start()
-    {
-        InitCapacity();
-    }
-
-    private void InitCapacity()
     {
         if (data != null)
         {
             _currentBeltCapacity = data.MaxBeltCapacity;
-            _currentQueueCapacity = data.MaxQueueCapacity;
         }
     }
 
@@ -152,16 +140,27 @@ public class ConveyorManager : MonoBehaviour
         float safeDistance = data.SafeDistance;
         float splineLength = splineContainer.CalculateLength();
         float entryDist = data.StartPointInConveyor * splineLength;
-        
+        float exitDist = data.EndPointInConveyor * splineLength;
+
+        // Khoảng cách an toàn phía sau cần cộng thêm quãng đường unit sẽ di chuyển trong lúc unit mới đang jump/drop (0.5s)
+        float safeDistanceBehind = safeDistance + data.MoveSpeed * data.JumpDuration;
+
         foreach (var unit in _active)
         {
             if (!unit.IsAttached) return false;
             float dist = unit.GetDistanceOnBelt();
-            float diff = Mathf.Abs(dist - entryDist);
 
-            if (diff < safeDistance) return false;
+            // 1. Kiểm tra phía trước lối vào (unit đang rời khỏi lối vào)
+            float distAhead = dist - entryDist;
+            if (distAhead >= 0 && distAhead < safeDistance) return false;
+
+            // 2. Nếu đang loop, kiểm tra khoảng cách từ phía sau (unit đang tiến tới endpoint để loop về lối vào)
+            if (_isEndgameRush)
+            {
+                float distBehind = exitDist - dist;
+                if (distBehind >= 0 && distBehind < safeDistanceBehind) return false;
+            }
         }
-
         return true;
     }
 

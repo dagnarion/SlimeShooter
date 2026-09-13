@@ -19,5 +19,5 @@ MonoBehaviour:
   dropDuration: 0.5
   maxBeltCapacity: 5
   maxQueueCapacity: 5
-  safeDistance: 1.2
+  safeDistance: 0.5
   itemHeight: 1

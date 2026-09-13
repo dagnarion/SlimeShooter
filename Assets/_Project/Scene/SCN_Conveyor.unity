@@ -1350,7 +1350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaitLine
   selectionEventChannel: {fileID: 11400000, guid: 77292aaeda28beb4191410aeab47903b, type: 2}
   onItemExited: {fileID: 11400000, guid: cdb03ee39ab2d624694a1bd4e776f30b, type: 2}
-  onGameOverEvent: {fileID: 0}
+  onGameOverEvent: {fileID: 11400000, guid: dfac989f10c918748823b4f9e9ec82c5, type: 2}
+  onAddMovable: {fileID: 11400000, guid: 83562c030b30455a9a8873eaaa6555da, type: 2}
 --- !u!1 &1034336926
 GameObject:
   m_ObjectHideFlags: 0
