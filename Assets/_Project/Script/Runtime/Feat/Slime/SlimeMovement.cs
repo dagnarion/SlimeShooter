@@ -102,6 +102,13 @@ public class SlimeMovement : IMovable, IDisposable
             _distance = _exitProgress *  _splineLength;
         }
     }
+    
+    public void DetachFromBelt()
+    {
+        _isAttached = false;
+        _splineLength = 0f;
+        _distance = 0f;
+    }
 
     public void Dispose()
     {

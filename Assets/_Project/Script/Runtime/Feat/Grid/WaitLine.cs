@@ -71,7 +71,7 @@ public class WaitLine : MonoBehaviour
     {
         if (movable == null || movable == null) return;
         
-        if (movable is IDisposable disposable)
+        if (movable.Movement is IDisposable disposable)
         {
             disposable.Dispose();
         }
@@ -90,7 +90,9 @@ public class WaitLine : MonoBehaviour
         }
 
         if (holder == null || grid == null) return false;
-
+        
+        obj.Movement.DetachFromBelt(); // test
+        
         for (int x = 0; x < holder.Length; x++)
         {
             if (holder[x] == null)
