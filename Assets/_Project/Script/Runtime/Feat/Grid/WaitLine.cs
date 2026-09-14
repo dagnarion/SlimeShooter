@@ -67,16 +67,16 @@ public class WaitLine : MonoBehaviour
         holder[holder.Length - 1] = null;
     }
     
-    private void HandleItemExited(IGamePices movable)
+    private void HandleItemExited(IGamePices gamePices)
     {
-        if (movable == null || movable == null) return;
-        
-        if (movable.Movement is IDisposable disposable)
+        if (gamePices == null) return;
+        if(!gamePices.Transform.gameObject.activeSelf) return;
+        if (gamePices.Movement is IDisposable disposable)
         {
             disposable.Dispose();
         }
 
-        Add(movable);
+        Add(gamePices);
     }
     
     public bool Add(IGamePices obj)
