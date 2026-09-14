@@ -10,23 +10,45 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="" />
+    <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/ObjectPool/PixelPool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/ObjectPool/PixelPool.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/ObjectPool/SlimePool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/ObjectPool/SlimePool.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/Prefabs/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/Prefabs/Bullet.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/Prefabs/Pixel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/Prefabs/Pixel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/Prefabs/Slime.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Resource/Prefabs/Slime.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Grid.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_Grid.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/PoolManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/PoolManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeBullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeBullet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeLocalEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeLocalEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeShooter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeShooter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/SpawnPixelsOrSomethings/Pixel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/SpawnPixelsOrSomethings/Pixel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/SpawnPixelsOrSomethings/PixelSpawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/SpawnPixelsOrSomethings/PixelSpawn.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../Factories/Assets/_Project/Script/Feat/Convenyor/Scripts/Logic/ConveyorFollower.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Factories/Assets/_Project/Script/Feat/Convenyor/Scripts/Logic/SplineMover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/SelectionEventChannel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Test/SlimeMovementTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridDataSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/ObjectPool/PixelPool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/ObjectPool/SlimePool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Immediate Window" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -100,30 +122,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;origin/merge/merge#2&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "origin/merge/merge#2",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.3.18f1\Editor\Unity.exe" />
@@ -145,13 +168,15 @@
       <option name="MIXED_MODE_DEBUG" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false" ignored-value-for-modified-check="2128">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="2128" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list />
+        <list>
+          <MonoRuntime />
+        </list>
       </option>
       <option name="selectedOptions">
         <list />

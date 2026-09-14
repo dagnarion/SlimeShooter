@@ -23,7 +23,8 @@ public class GridController : MonoBehaviour
     #region Slime
     [SerializeField] private SlimeDataSO[] slimeDataSos; // test
     [SerializeField] private Transform holder;
-    [SerializeField] private SlimeController slimePrefab; // tách ra thành một factory spawn game pices
+    [SerializeField] private ComponentPoolSO<SlimeController> slimePool;
+ //   [SerializeField] private SlimeController slimePrefab; // tách ra thành một factory spawn game pices
     #endregion
 
     #region Event
@@ -52,9 +53,12 @@ public class GridController : MonoBehaviour
         holder.Clear();
         gridRender.Init(gridComponent,gridData);
         waitLineRender.Init(waitLineGridComponent,waitLinedata);
+        slimePool.InitPool(holder); // để tạm, sau khởi tạo trong boostrap
         grid = new Grid<IGamePices>(gridData.GridSize, Pos =>
         {
-            SlimeController slime = Instantiate(slimePrefab,gridComponent.GetCellCenterWorld(new Vector3Int(Pos.x,Pos.y,0)),Quaternion.identity,holder); // sau refactor
+            SlimeController slime = slimePool.Get();
+            slime.transform.position = gridComponent.GetCellCenterWorld(new Vector3Int(Pos.x, Pos.y, 0));
+            slime.transform.rotation = Quaternion.identity;
             slime.Init(slimeDataSos[Random.Range(0,slimeDataSos.Length)]);
             return slime as IGamePices;
         });

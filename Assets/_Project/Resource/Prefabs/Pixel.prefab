@@ -126,3 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pixel
   meshRenderer: {fileID: 5781815655562400410}
+  PixelPool: {fileID: 11400000, guid: d0f8b76437f1b5145be184d2abc85676, type: 2}
+  HasBeenShot: 0

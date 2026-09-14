@@ -8,33 +8,35 @@ using Physics = UnityEngine.Physics;
 
 public class SlimeShooter : MonoBehaviour
 {
+    [SerializeField] private ComponentPoolSO<SlimeBullet> bulletPool;
+    [SerializeField] LayerMask PixelLayer;
     [SerializeField] float RaycastLength;
     [SerializeField] float BulletSpeed;
-    [SerializeField] LayerMask PixelLayer;
+    private SlimeLocalEvent slimeLocalEvent;
     int Ammo;
-    
+    private bool isDead;
     RaycastHit hit;
     Transform previousHit;
     Color32 Color;
-
-    ObjectPool<SlimeShooter> SlimeShooterPool;
-    public void Init(ObjectPool<SlimeShooter> pool) => SlimeShooterPool = pool;
-    private SlimeLocalEvent slimeLocalEvent;
     
     public void Setup(Color32 color, int ammo,SlimeLocalEvent slimeLocalEvent)
     {
         Ammo = ammo;
         Color = color;
         this.slimeLocalEvent = slimeLocalEvent;
+        isDead = false;
     }
     
     private void Update()
     {
-        if(Ammo <= 0)
+        if(Ammo <= 0 && !isDead)
         {
-            Dead();
+            isDead = true;
+            slimeLocalEvent.RaiseDead();
             return;
         }
+        if(isDead) return;
+        
         if(transform.rotation == Quaternion.Euler(0,0,0) || transform.rotation == Quaternion.Euler(0,90,0) || transform.rotation == Quaternion.Euler(0,180,0) || transform.rotation == Quaternion.Euler(0, -90, 0))
         {
             Physics.Raycast(transform.position,transform.forward,out hit,RaycastLength,PixelLayer);
@@ -53,15 +55,10 @@ public class SlimeShooter : MonoBehaviour
     }
     void Shoot()
     {
-        SlimeBullet bullet = PoolManager.Instance.GetSlimeBullet();
+        SlimeBullet bullet = bulletPool.Get();
         bullet.Setup(transform.position,transform.rotation,BulletSpeed,Color);
         Ammo--;
         slimeLocalEvent.Raise(Ammo);
     }
     
-    public void Dead()
-    {
-        SlimeShooterPool.Release(this);
-    }
-
 }

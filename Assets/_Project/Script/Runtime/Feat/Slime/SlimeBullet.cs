@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 [RequireComponent(typeof(Rigidbody))]
 public class SlimeBullet : MonoBehaviour
 {
-    ObjectPool<SlimeBullet> SlimeBulletPool;
+    [SerializeField] private ComponentPoolSO<SlimeBullet> bulletPool;
     Rigidbody rb;
     private bool isReleased;
     public Color32 Color;
@@ -18,8 +18,7 @@ public class SlimeBullet : MonoBehaviour
     {
         isReleased = false;
     }
-
-    public void Init(ObjectPool<SlimeBullet> pool) => SlimeBulletPool = pool;
+    
     public void Setup(Vector3 pos, Quaternion rotation,float speed,Color32 color)
     {
         transform.position = pos;
@@ -48,6 +47,6 @@ public class SlimeBullet : MonoBehaviour
     {
         if(isReleased) return;
         isReleased = true;
-        SlimeBulletPool.Release(this);
+        bulletPool.Release(this);
     }
 }

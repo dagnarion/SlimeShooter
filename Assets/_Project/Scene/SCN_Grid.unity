@@ -885,11 +885,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &116853191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 116853189}
   slimeShooter: {fileID: 116853190}
+  slimePool: {fileID: 0}
 --- !u!1 &158759521
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,11 +968,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &158759525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 158759523}
   slimeShooter: {fileID: 158759524}
+  slimePool: {fileID: 0}
 --- !u!1 &181704955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,11 +1667,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &222681418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,6 +1687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 222681416}
   slimeShooter: {fileID: 222681417}
+  slimePool: {fileID: 0}
 --- !u!1 &273172434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,11 +1750,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &273172438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1763,6 +1770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 273172436}
   slimeShooter: {fileID: 273172437}
+  slimePool: {fileID: 0}
 --- !u!1 &287738895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,11 +2515,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &563915126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2526,6 +2535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 563915124}
   slimeShooter: {fileID: 563915125}
+  slimePool: {fileID: 0}
 --- !u!21 &572301263
 Material:
   serializedVersion: 8
@@ -2755,6 +2765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79bdb376e3456b4b99805614dedeeaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawn
+  holder: {fileID: 659818803}
+  PixelPool: {fileID: 11400000, guid: d0f8b76437f1b5145be184d2abc85676, type: 2}
   spawnDataSO: {fileID: 11400000, guid: 3f3ba1b98dcab1344802da9be99b039a, type: 2}
 --- !u!4 &659818803
 Transform:
@@ -3233,7 +3245,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1deb5f842f9bbe4439764c1a1bbccd6d, type: 2}
   - {fileID: 11400000, guid: 1d1c160a2cf37ef42a03b5c521da79cf, type: 2}
   holder: {fileID: 2120672073}
-  slimePrefab: {fileID: 3381644267789089764, guid: c55ebfefa10c639428e8b967183980ef, type: 3}
+  slimePool: {fileID: 11400000, guid: 28447c1ed43924c4dabb6d6820af7314, type: 2}
   selectionEventChannel: {fileID: 11400000, guid: 77292aaeda28beb4191410aeab47903b, type: 2}
   onAddMovable: {fileID: 11400000, guid: 83562c030b30455a9a8873eaaa6555da, type: 2}
 --- !u!4 &816739769
@@ -4829,11 +4841,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1181092738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4848,6 +4861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1181092736}
   slimeShooter: {fileID: 1181092737}
+  slimePool: {fileID: 0}
 --- !u!1 &1199899853
 GameObject:
   m_ObjectHideFlags: 0
@@ -5251,11 +5265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1246304383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,6 +5285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1246304381}
   slimeShooter: {fileID: 1246304382}
+  slimePool: {fileID: 0}
 --- !u!21 &1249240093
 Material:
   serializedVersion: 8
@@ -6128,11 +6144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1346614413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6147,6 +6164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1346614411}
   slimeShooter: {fileID: 1346614412}
+  slimePool: {fileID: 0}
 --- !u!21 &1385552366
 Material:
   serializedVersion: 8
@@ -6335,11 +6353,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1410168764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6354,6 +6373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1410168762}
   slimeShooter: {fileID: 1410168763}
+  slimePool: {fileID: 0}
 --- !u!1 &1418387913
 GameObject:
   m_ObjectHideFlags: 0
@@ -6679,11 +6699,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1434587132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6698,6 +6719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1434587130}
   slimeShooter: {fileID: 1434587131}
+  slimePool: {fileID: 0}
 --- !u!1 &1471578370
 GameObject:
   m_ObjectHideFlags: 0
@@ -6825,11 +6847,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1481452650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6844,6 +6867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1481452648}
   slimeShooter: {fileID: 1481452649}
+  slimePool: {fileID: 0}
 --- !u!1 &1489995539
 GameObject:
   m_ObjectHideFlags: 0
@@ -6996,11 +7020,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1491123831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7015,6 +7040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1491123829}
   slimeShooter: {fileID: 1491123830}
+  slimePool: {fileID: 0}
 --- !u!1 &1557780496
 GameObject:
   m_ObjectHideFlags: 0
@@ -7645,11 +7671,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1629540127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7664,6 +7691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1629540125}
   slimeShooter: {fileID: 1629540126}
+  slimePool: {fileID: 0}
 --- !u!1 &1658058179
 GameObject:
   m_ObjectHideFlags: 0
@@ -7878,11 +7906,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &1744476343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7897,6 +7926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 1744476341}
   slimeShooter: {fileID: 1744476342}
+  slimePool: {fileID: 0}
 --- !u!21 &1824709324
 Material:
   serializedVersion: 8
@@ -8772,11 +8802,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 0}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &2025294383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8791,6 +8822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 2025294381}
   slimeShooter: {fileID: 2025294382}
+  slimePool: {fileID: 0}
 --- !u!1 &2026883646
 GameObject:
   m_ObjectHideFlags: 0
@@ -9145,7 +9177,7 @@ Transform:
   m_GameObject: {fileID: 2120672072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

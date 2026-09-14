@@ -242,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimeController
   slimeRender: {fileID: 2787645595159427340}
   slimeShooter: {fileID: 3684439642507252278}
+  slimePool: {fileID: 11400000, guid: 28447c1ed43924c4dabb6d6820af7314, type: 2}
 --- !u!114 &3684439642507252278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,11 +255,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de50d37eccffdb499ce544429481cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeShooter
-  RaycastLength: 8
-  BulletSpeed: 8
+  bulletPool: {fileID: 11400000, guid: cb00a1b2a46a7ce4f840ef65214a97e4, type: 2}
   PixelLayer:
     serializedVersion: 2
     m_Bits: 64
+  RaycastLength: 8
+  BulletSpeed: 8
 --- !u!114 &2787645595159427340
 MonoBehaviour:
   m_ObjectHideFlags: 0

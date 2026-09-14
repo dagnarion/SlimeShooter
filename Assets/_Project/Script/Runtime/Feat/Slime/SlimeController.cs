@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SlimeController : MonoBehaviour,IGamePices
 {
@@ -7,9 +8,15 @@ public class SlimeController : MonoBehaviour,IGamePices
     public IMovable Movement { get; private set; }
     [SerializeField] private SlimeRender slimeRender;
     [SerializeField] private SlimeShooter slimeShooter;
+    [SerializeField] private ComponentPoolSO<SlimeController> slimePool;
     private SlimeDataSO slimeData;
 
-    
+
+    private void OnDisable()
+    {
+       if(slimeEvent!=null) slimeEvent.OnDead -= Dead;
+    }
+
     public void Init(SlimeDataSO slimeData)
     {
         slimeEvent = new SlimeLocalEvent();
@@ -17,6 +24,12 @@ public class SlimeController : MonoBehaviour,IGamePices
         slimeShooter.Setup(slimeData.Color,slimeData.bulletAmount,slimeEvent);
         Movement = new SlimeMovement(transform);
         Transform = this.gameObject.transform;
+        slimeEvent.OnDead += Dead;
+    }
+
+    private void Dead()
+    {
+        slimePool.Release(this);
     }
 
 

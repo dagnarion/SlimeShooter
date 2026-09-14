@@ -3,6 +3,8 @@ using UnityEngine.Pool;
 
 public class PixelSpawn : MonoBehaviour
 {
+    [SerializeField] private Transform holder;
+    [SerializeField] private ComponentPoolSO<Pixel> PixelPool;
     [SerializeField] SpawnDataSO spawnDataSO;
     Color32[] pixels;
 
@@ -10,6 +12,7 @@ public class PixelSpawn : MonoBehaviour
     private void Start()
     {
         SpawnPixels();
+        PixelPool.InitPool(holder); // để tạm sau khởi tạo trong boostrap
     }
 
     public void SpawnPixels()
@@ -28,7 +31,7 @@ public class PixelSpawn : MonoBehaviour
             {
                 if (pixels[count].a != 0)
                 {
-                    Pixel pixel = PoolManager.Instance.GetPixel();
+                    Pixel pixel = PixelPool.Get();
                     Vector3 pos = new Vector3(
                         transform.position.x + j * spawnDataSO.cellSize - offsetX,
                         transform.position.y,

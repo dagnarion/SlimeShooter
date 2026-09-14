@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c01e1069046dc4a8c6a9d5fe5368fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeBullet
+  bulletPool: {fileID: 11400000, guid: cb00a1b2a46a7ce4f840ef65214a97e4, type: 2}
   Color:
     serializedVersion: 2
     rgba: 0

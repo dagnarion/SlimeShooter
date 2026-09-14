@@ -19,7 +19,7 @@ public class SlimeRender : MonoBehaviour
 
    private void OnDisable()
    {
-      slimeEvent.OnShoot -= UpdateBulletCount;
+    if(slimeEvent!=null)  slimeEvent.OnShoot -= UpdateBulletCount;
    }
 
 

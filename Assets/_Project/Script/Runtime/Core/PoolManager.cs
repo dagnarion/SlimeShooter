@@ -30,7 +30,7 @@ public class PoolManager : MonoBehaviour
             createFunc: () =>
             {
                 Pixel bullet = Instantiate(PixelPrefab, PixelParent);
-                bullet.Init(PixelPool);
+             //   bullet.Init(PixelPool);
                 return bullet;
             },
             actionOnGet: (Pixel enemyBullet) =>
@@ -54,7 +54,7 @@ public class PoolManager : MonoBehaviour
             createFunc: () =>
             {
                 SlimeShooter bullet = Instantiate(SlimeShooterPrefab, SlimeShooterParent);
-                bullet.Init(SlimeShooterPool);
+               // bullet.Init(SlimeShooterPool);
                 return bullet;
             },
             actionOnGet: (SlimeShooter enemyBullet) =>
@@ -77,7 +77,7 @@ public class PoolManager : MonoBehaviour
             createFunc: () =>
             {
                 SlimeBullet bullet = Instantiate(SlimeBulletPrefab, SlimeBulletParent);
-                bullet.Init(SlimeBulletPool);
+             //   bullet.Init(SlimeBulletPool);
                 return bullet;
             },
             actionOnGet: (SlimeBullet enemyBullet) =>
