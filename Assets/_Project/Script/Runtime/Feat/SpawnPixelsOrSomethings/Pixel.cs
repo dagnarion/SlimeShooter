@@ -1,3 +1,4 @@
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -20,6 +21,15 @@ public class Pixel : MonoBehaviour
     private void OnEnable()
     {
         HasBeenShot = false;
+    }
+    public void SetBeenShot()
+    {
+        if (HasBeenShot)
+        {
+            return;
+        }
+        HasBeenShot = true;
+        DOVirtual.DelayedCall(0.5f,() => HasBeenShot = false);
     }
     public Color32 GetColor()
     {

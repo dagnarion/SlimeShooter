@@ -47,7 +47,7 @@ public class SlimeShooter : MonoBehaviour
                 var pixelColor = pixels.GetColor();
                 if (Color.Equals(pixelColor) && !pixels.HasBeenShot)
                 {
-                    pixels.HasBeenShot = true;
+                    pixels.SetBeenShot();
                     Shoot();
                 }
             }    
