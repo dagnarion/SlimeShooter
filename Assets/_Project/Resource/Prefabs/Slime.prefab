@@ -243,6 +243,7 @@ MonoBehaviour:
   slimeRender: {fileID: 2787645595159427340}
   slimeShooter: {fileID: 3684439642507252278}
   slimePool: {fileID: 11400000, guid: 28447c1ed43924c4dabb6d6820af7314, type: 2}
+  movableDiedChannel: {fileID: 11400000, guid: a6ce35c0f4c37004da5cd8731303372e, type: 2}
 --- !u!114 &3684439642507252278
 MonoBehaviour:
   m_ObjectHideFlags: 0

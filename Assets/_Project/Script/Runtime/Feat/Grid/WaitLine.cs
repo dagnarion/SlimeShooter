@@ -14,7 +14,7 @@ public class WaitLine : MonoBehaviour
 
     private GridDataSO data;
     private Grid grid;
-    private IGamePices[] holder;
+    private IGamePieces[] holder;
 
     private void OnEnable()
     {
@@ -45,7 +45,7 @@ public class WaitLine : MonoBehaviour
 
     public void Init(Grid grid,GridDataSO data)
     {
-        holder = new IGamePices[data.GridSize.x];
+        holder = new IGamePieces[data.GridSize.x];
         this.data = data;
         this.grid = grid;
         grid.cellSize = data.CellSize;
@@ -56,7 +56,7 @@ public class WaitLine : MonoBehaviour
     {
         for (int x = pos; x < holder.Length - 1; x++) 
         {
-            IGamePices next = holder[x + 1];
+            IGamePieces next = holder[x + 1];
             holder[x] = next;
         
             if (next != null)
@@ -67,19 +67,19 @@ public class WaitLine : MonoBehaviour
         holder[holder.Length - 1] = null;
     }
     
-    private void HandleItemExited(IGamePices gamePices)
+    private void HandleItemExited(IGamePieces gamePieces)
     {
-        if (gamePices == null) return;
-        if(!gamePices.Transform.gameObject.activeSelf) return;
-        if (gamePices.Movement is IDisposable disposable)
+        if (gamePieces == null) return;
+        if(!gamePieces.Transform.gameObject.activeSelf) return;
+        if (gamePieces.Movement is IDisposable disposable)
         {
             disposable.Dispose();
         }
 
-        Add(gamePices);
+        Add(gamePieces);
     }
     
-    public bool Add(IGamePices obj)
+    public bool Add(IGamePieces obj)
     {
         if (IsGameOver || obj == null) return false;
         
@@ -120,13 +120,13 @@ public class WaitLine : MonoBehaviour
         if (position.x >= data.GridSize.x || position.x < 0) return;
         if (holder[position.x] == null) return;
 
-        IGamePices obj = holder[position.x];
+        IGamePieces obj = holder[position.x];
 
         if (onAddMovable != null)
         {
             obj.Transform.DOKill();
             bool accepted = false;
-            IGamePices movable = obj;
+            IGamePieces movable = obj;
             movable.Movement.OnAccepted = () =>
             {
                 accepted = true;

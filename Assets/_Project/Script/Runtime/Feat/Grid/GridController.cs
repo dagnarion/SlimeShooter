@@ -17,7 +17,7 @@ public class GridController : MonoBehaviour
     [SerializeField] private Grid gridComponent;
     [SerializeField] private Grid waitLineGridComponent;
     [SerializeField] private WaitLine waitLine;
-    private Grid<IGamePices> grid;
+    private Grid<IGamePieces> grid;
     #endregion
 
     #region Slime
@@ -54,13 +54,13 @@ public class GridController : MonoBehaviour
         gridRender.Init(gridComponent,gridData);
         waitLineRender.Init(waitLineGridComponent,waitLinedata);
         slimePool.InitPool(holder); // để tạm, sau khởi tạo trong boostrap
-        grid = new Grid<IGamePices>(gridData.GridSize, Pos =>
+        grid = new Grid<IGamePieces>(gridData.GridSize, Pos =>
         {
             SlimeController slime = slimePool.Get();
             slime.transform.position = gridComponent.GetCellCenterWorld(new Vector3Int(Pos.x, Pos.y, 0));
             slime.transform.rotation = Quaternion.identity;
             slime.Init(slimeDataSos[Random.Range(0,slimeDataSos.Length)]);
-            return slime as IGamePices;
+            return slime as IGamePieces;
         });
         waitLine.Init(waitLineGridComponent,waitLinedata);
     }
@@ -71,10 +71,10 @@ public class GridController : MonoBehaviour
        if (!TryGetSlime(pos)) return;
        Vector2Int position = (Vector2Int)gridComponent.WorldToCell(pos);
        
-       IGamePices slime = grid.GetValue(position);
+       IGamePieces slime = grid.GetValue(position);
        if (slime == null) return;
        
-       IGamePices movable = slime;
+       IGamePieces movable = slime;
        movable.Movement.OnAccepted = () =>
        {
            grid.SetValue(position, null);
@@ -88,7 +88,7 @@ public class GridController : MonoBehaviour
     {
         for (int y = pos.y; y >= 0; y--)
         {
-            IGamePices nextValue = grid.GetValue(new Vector2Int(pos.x, y - 1));
+            IGamePieces nextValue = grid.GetValue(new Vector2Int(pos.x, y - 1));
             grid.SetValue(new Vector2Int(pos.x,y),nextValue);
             if (nextValue != null)
             {

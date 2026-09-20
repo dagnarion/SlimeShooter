@@ -1,49 +1,41 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
 public class ConveyorManager : MonoBehaviour
 {
+    #region Fields
     [SerializeField] private SplineContainer splineContainer;
     [SerializeField] private ConveyorDataSO data;
     [SerializeField] private MovableEventChanelSO onItemEntered;
     [SerializeField] private MovableEventChanelSO onItemExited;
-    [SerializeField] private bool _isEndgameRush = false;
-    
-    private readonly List<IGamePices> _active = new List<IGamePices>();
-    private readonly List<IGamePices> _queue = new List<IGamePices>();
+    [SerializeField] private MovableEventChanelSO onItemDied;
+    [SerializeField] private bool isEndgameRush = false;
 
     private int _currentBeltCapacity;
+    private QueueService queueService;
+    private BeltService beltService;
 
-    public bool IsEndgameRush
+    #endregion
+
+    #region Life Cycle
+
+    private void Awake()
     {
-        get => _isEndgameRush;
-        set => _isEndgameRush = value;
-    }
+        Vector3 entryPosition = GetBeltEntry();
 
-    public MovableEventChanelSO OnItemEntered => onItemEntered;
-    public MovableEventChanelSO OnItemExited => onItemExited;
+        queueService = new QueueService(
+            entryPosition,
+            data.ItemHeight,
+            data.DropDuration);
 
-    private void OnEnable()
-    {
-        if (onItemEntered != null)
-        {
-            onItemEntered.OnEventRaised += HandleItemEntered;
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (onItemEntered != null)
-        {
-            onItemEntered.OnEventRaised -= HandleItemEntered;
-        }
-    }
-
-    private void HandleItemEntered(IGamePices unit)
-    {
-        AddItemToConveyor(unit);
+        beltService = new BeltService(
+            splineContainer,
+            entryPosition,
+            data.StartPointInConveyor,
+            data.EndPointInConveyor,
+            data.MoveSpeed,
+            data.SafeDistance,
+            data.JumpDuration);
     }
 
     private void Start()
@@ -56,128 +48,75 @@ public class ConveyorManager : MonoBehaviour
 
     private void Update()
     {
-        if (!splineContainer) return;
-        
-        float deltaTime = Time.deltaTime;
-
-        for (int i = _active.Count - 1; i >= 0; i--)
+        beltService.Tick(Time.deltaTime, isEndgameRush, unit =>
         {
-            IGamePices movable = _active[i];
-            bool reachedExit = movable.Movement.Tick(deltaTime, data.MoveSpeed, splineContainer, _isEndgameRush);
-            if (!reachedExit || _isEndgameRush) continue;
-
-            _active.RemoveAt(i);
-            onItemExited?.EventRaise(movable);
-        }
+            onItemExited?.EventRaise(unit);
+        });
 
         TryDispatchFromQueue();
     }
 
-    public bool AddItemToConveyor(IGamePices unit)
+    #endregion
+
+    public bool IsEndgameRush
     {
-        if (unit == null || !splineContainer || !CanAcceptToConveyor()) return false;
-        if (_queue.Count == 0 && IsEntranceClear())
+        get => isEndgameRush;
+        set => isEndgameRush = value;
+    }
+
+    public void AddItemToConveyor(IGamePieces unit)
+    {
+        if (unit == null || !splineContainer || !CanAcceptToConveyor()) return;
+        
+        if (queueService.GetQueueCount() == 0 && beltService.IsEntranceClear(isEndgameRush))
         {
-            AddToBelt(unit);
+            beltService.AddDirect(unit);
         }
         else
         {
-            AddToQueue(unit);
+            queueService.AddToQueue(unit);
         }
 
         unit.Movement.OnAccepted?.Invoke();
-        return true;
     }
 
-    private void AddToQueue(IGamePices unit)
+    public void RemoveItemFromConveyor(IGamePieces unit)
     {
-        _queue.Add(unit);
-        Vector3 entryPosition = GetBeltEntry();
-        Vector3 newStackPosition = entryPosition + Vector3.up * (data.ItemHeight * _queue.Count);
-        
-        unit.Movement.PlayJumpTo(newStackPosition, data.DropDuration);
-    }
+        if (unit == null) return;
 
-    private void AddToBelt(IGamePices unit)
-    {
-        _active.Add(unit);
-            
-        Vector3 entryPosition = GetBeltEntry();
-        unit.Movement.PlayJumpTo(entryPosition, data.JumpDuration, () =>
+        if (beltService.IsBeltHasUnit(unit))
         {
-            unit.Movement.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
-        });
+            beltService.RemoveFromBelt(unit);
+            TryDispatchFromQueue();
+            return;
+        }
+
+        if (queueService.IsQueueHasUnit(unit))
+        {
+            queueService.RemoveFromQueue(unit);
+        }
     }
-    
+
     private void TryDispatchFromQueue()
     {
-        if (_queue.Count == 0 || !IsEntranceClear()) return;
+        if (queueService.GetQueueCount() == 0 || !beltService.IsEntranceClear(isEndgameRush)) return;
         
-        var unit = _queue[0];
-        _queue.RemoveAt(0);
-        _active.Add(unit);
+        var unit = queueService.GetFirstQueue();
 
-        Vector3 entryPosition = GetBeltEntry();
-        
-        unit.Movement.PlayDropTo(entryPosition, data.JumpDuration, () =>
-        {
-            unit.Movement.AttachToBelt(splineContainer, data.StartPointInConveyor, data.EndPointInConveyor);
-        });
-        
-        RestackQueue();
+        beltService.AddFromQueue(unit);
+        queueService.RestackQueue();
     }
 
     public bool CanAcceptToConveyor()
     {
         if (!splineContainer) return false;
         int maxCapacity = _currentBeltCapacity > 0 ? _currentBeltCapacity : (data != null ? data.MaxBeltCapacity : 5);
-        return (_active.Count + _queue.Count) < maxCapacity;
-    }
-
-    public bool IsEntranceClear()
-    {
-        if (!splineContainer || data == null) return false;
-        float safeDistance = data.SafeDistance;
-        float splineLength = splineContainer.CalculateLength();
-        float entryDist = data.StartPointInConveyor * splineLength;
-        float exitDist = data.EndPointInConveyor * splineLength;
-
-        // Khoảng cách an toàn phía sau cần cộng thêm quãng đường unit sẽ di chuyển trong lúc unit mới đang jump/drop (0.5s)
-        float safeDistanceBehind = safeDistance + data.MoveSpeed * data.JumpDuration;
-
-        foreach (var unit in _active)
-        {
-            if (!unit.Movement.IsAttached) return false;
-            float dist = unit.Movement.GetDistanceOnBelt();
-
-            // 1. Kiểm tra phía trước lối vào (unit đang rời khỏi lối vào)
-            float distAhead = dist - entryDist;
-            if (distAhead >= 0 && distAhead < safeDistance) return false;
-
-            // 2. Nếu đang loop, kiểm tra khoảng cách từ phía sau (unit đang tiến tới endpoint để loop về lối vào)
-            if (_isEndgameRush)
-            {
-                float distBehind = exitDist - dist;
-                if (distBehind >= 0 && distBehind < safeDistanceBehind) return false;
-            }
-        }
-        return true;
+        return (beltService.GetBeltCount() + queueService.GetQueueCount()) < maxCapacity;
     }
 
     private Vector3 GetBeltEntry()
     {
         splineContainer.Evaluate(data.StartPointInConveyor, out var pos, out _, out _);
         return pos;
-    }
-
-    private void RestackQueue()
-    {
-        Vector3 entryPosition = GetBeltEntry();
-        for (int i = 0; i < _queue.Count; i++)
-        {
-            Vector3 newStackPosition = entryPosition + Vector3.up * (data.ItemHeight * (i + 1));
-            var unit = _queue[i];
-            unit.Movement.PlayDropTo(newStackPosition, data.DropDuration);
-        }
     }
 }

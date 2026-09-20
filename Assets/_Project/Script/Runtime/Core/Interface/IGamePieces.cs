@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public interface IGamePices
+public interface IGamePieces
 {
     Transform Transform { get; }
     IMovable Movement { get; }

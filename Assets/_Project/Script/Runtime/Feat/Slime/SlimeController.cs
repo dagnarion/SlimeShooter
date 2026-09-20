@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class SlimeController : MonoBehaviour,IGamePices
+public class SlimeController : MonoBehaviour,IGamePieces
 {
     private SlimeLocalEvent slimeEvent;
     public Transform Transform { get; private set; } 
@@ -9,6 +9,7 @@ public class SlimeController : MonoBehaviour,IGamePices
     [SerializeField] private SlimeRender slimeRender;
     [SerializeField] private SlimeShooter slimeShooter;
     [SerializeField] private ComponentPoolSO<SlimeController> slimePool;
+    [SerializeField] private MovableEventChanelSO movableDiedChannel;
     private SlimeDataSO slimeData;
 
 
@@ -29,6 +30,7 @@ public class SlimeController : MonoBehaviour,IGamePices
 
     private void Dead()
     {
+        movableDiedChannel.EventRaise(this);
         slimePool.Release(this);
     }
 
