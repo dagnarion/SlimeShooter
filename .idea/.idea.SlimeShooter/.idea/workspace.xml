@@ -12,16 +12,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b79755f4-6849-4268-bd33-a0d96e370957" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SlimeShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events/SO_Movable.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Resource/SO/Events/SO_Movable.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_UI.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scene/SCN_UI.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/Interface/IGamePices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/Interface/IGamePieces.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/Interface/IGamePices.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/Interface/IGamePieces.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/MovableEventChanelSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Core/SO/Events/MovableEventChanelSO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Logic/ConveyorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Conveyor/Logic/ConveyorManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/GridController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Grid/WaitLine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Slime/SlimeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerInput.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayerInput.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Script/Runtime/Feat/Select/SelectHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

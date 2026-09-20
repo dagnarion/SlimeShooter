@@ -4370,6 +4370,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1496974763}
   - {fileID: 88251466}
   - {fileID: 596964016}
   m_Father: {fileID: 0}
@@ -8688,6 +8689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1471578373}
+  - component: {fileID: 1471578374}
   - component: {fileID: 1471578372}
   m_Layer: 0
   m_Name: Manager
@@ -8710,7 +8712,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectHandler
   mainCamera: {fileID: 845211164}
   selectionEvent: {fileID: 11400000, guid: 77292aaeda28beb4191410aeab47903b, type: 2}
-  clickAction: {fileID: 2899538521589265866, guid: a3e8f94c0d4903149a8c307c7deb3261, type: 3}
+  clickAction: {fileID: -5791689764868674270, guid: a3e8f94c0d4903149a8c307c7deb3261, type: 3}
+  clickPosition: {fileID: 2899538521589265866, guid: a3e8f94c0d4903149a8c307c7deb3261, type: 3}
+  checkingLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1471578373
 Transform:
   m_ObjectHideFlags: 0
@@ -8727,6 +8733,36 @@ Transform:
   - {fileID: 94917136}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1471578374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471578370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: a3e8f94c0d4903149a8c307c7deb3261, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerAction
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1481452646
 GameObject:
   m_ObjectHideFlags: 0
@@ -8985,6 +9021,59 @@ MonoBehaviour:
   slimeShooter: {fileID: 1491123830}
   slimePool: {fileID: 11400000, guid: 28447c1ed43924c4dabb6d6820af7314, type: 2}
   movableDiedChannel: {fileID: 11400000, guid: a6ce35c0f4c37004da5cd8731303372e, type: 2}
+--- !u!1 &1496974761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1496974763}
+  - component: {fileID: 1496974762}
+  m_Layer: 7
+  m_Name: CheckingArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1496974762
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496974761}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1496974763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496974761}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.1, z: -0.25626}
+  m_LocalScale: {x: -18.488546, y: 1, z: 27.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 816739769}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557780496
 GameObject:
   m_ObjectHideFlags: 0

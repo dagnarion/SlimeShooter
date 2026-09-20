@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,9 @@ public class SelectHandler : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private SelectionEventChannel selectionEvent;
     [SerializeField] private InputActionReference clickAction;
-
+    [SerializeField] private InputActionReference clickPosition;
+    [SerializeField] private LayerMask checkingLayer;
+    
     private void OnEnable()
     {
         clickAction.action.Enable();
@@ -22,7 +25,10 @@ public class SelectHandler : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext ctx)
     {
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        selectionEvent?.EventRaise(mainCamera.ScreenToWorldPoint(mousePos));
+        Vector2 mousePos = clickPosition.action.ReadValue<Vector2>();
+        RaycastHit ray;
+        Physics.Raycast(mainCamera.ScreenPointToRay(mousePos), out ray, Mathf.Infinity,checkingLayer);
+        if(ray.collider == null) return;
+        selectionEvent?.EventRaise(ray.point);
     }
 }
