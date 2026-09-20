@@ -9,17 +9,59 @@
                 {
                     "name": "ClickAction",
                     "type": "Button",
-                    "id": "19ee6007-5369-4eba-9780-c57aea6ace92",
+                    "id": "41570388-1d50-409d-9c4d-982a2195a8f0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ClickPosition",
+                    "type": "Value",
+                    "id": "19ee6007-5369-4eba-9780-c57aea6ace92",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "a266f98e-8570-4b06-8a73-f74b5d7b635f",
+                    "id": "11b58fa0-8e77-4be4-86ee-25e9217f795a",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClickPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1da7c825-fc24-4581-aef9-98bfa37318db",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClickPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6e8b82b-8a59-484b-927f-89c5c9f239d1",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClickAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2e2f487-ec49-4175-840f-5c32ee651cfb",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
