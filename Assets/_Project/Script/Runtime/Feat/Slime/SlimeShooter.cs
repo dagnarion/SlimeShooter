@@ -18,47 +18,54 @@ public class SlimeShooter : MonoBehaviour
     RaycastHit hit;
     Transform previousHit;
     Color32 Color;
-    
-    public void Setup(Color32 color, int ammo,SlimeLocalEvent slimeLocalEvent)
+
+    public void Setup(Color32 color, int ammo, SlimeLocalEvent slimeLocalEvent)
     {
         Ammo = ammo;
         Color = color;
         this.slimeLocalEvent = slimeLocalEvent;
         isDead = false;
     }
-    
+
     private void Update()
     {
-        if(Ammo <= 0 && !isDead)
+        if (Ammo <= 0 && !isDead)
         {
             isDead = true;
             slimeLocalEvent.RaiseDead();
             return;
         }
-        if(isDead) return;
-        
+        if (isDead) return;
         if(transform.rotation == Quaternion.Euler(0,0,0) || transform.rotation == Quaternion.Euler(0,90,0) || transform.rotation == Quaternion.Euler(0,180,0) || transform.rotation == Quaternion.Euler(0, -90, 0))
-        {
-            Physics.Raycast(transform.position,transform.forward,out hit,RaycastLength,PixelLayer);
-            if (hit.transform != null && previousHit != hit.transform)
+        {    
+            // No rotation checks needed anymore: the direction is always axis-aligned by design.
+            if (Physics.Raycast(transform.position, transform.forward, out hit, RaycastLength, PixelLayer) && previousHit != hit.transform)
             {
                 previousHit = hit.transform;
-                var pixels = hit.transform.GetComponent<Pixel>();
-                var pixelColor = pixels.GetColor();
-                if (Color.Equals(pixelColor) && !pixels.HasBeenShot)
+                var pixel = hit.transform.GetComponent<Pixel>();
+
+                if (Color.Equals(pixel.GetColor()) && !pixel.HasBeenShot)
                 {
-                    pixels.SetBeenShot();
-                    Shoot();
+                    pixel.SetBeenShot();
+                    Shoot(hit.collider.bounds.center);
                 }
-            }    
+            }
         }
+
     }
-    void Shoot()
+    void Shoot(Vector3 targetCenter)
     {
+        Vector3 dir = transform.forward.normalized;
+
+        // Slide the spawn point sideways into the pixel's lane, keeping the shooter's rotation untouched.
+        Vector3 toTarget = targetCenter - transform.position;
+        Vector3 lateralOffset = toTarget - Vector3.Project(toTarget, dir);
+        Vector3 spawnPos = transform.position + lateralOffset;
+
         SlimeBullet bullet = bulletPool.Get();
-        bullet.Setup(transform.position,transform.rotation,BulletSpeed,Color);
+        bullet.Setup(spawnPos, Quaternion.LookRotation(dir), BulletSpeed, Color);
         Ammo--;
         slimeLocalEvent.Raise(Ammo);
     }
-    
+
 }
