@@ -20,16 +20,15 @@ public class ConveyorView : MonoBehaviour
     [SerializeField] private TMP_Text slotCounter;
     [SerializeField] private Vector3 counterOffset = new Vector3(-1.2f, 0.1f, -1.2f);
 
-    [Header("Tạm thời tới P7 (khay chờ)")]
-    [Tooltip("Chỗ đặt shooter chạy hết vòng khi chưa có khay chờ.")]
-    [SerializeField] private Vector3 parkingOffset = new Vector3(0f, 0f, -1.8f);
+    [Header("Shooter hết đạn")]
+    [SerializeField] private ShooterViewPoolSO shooterPool;
+    [SerializeField] private float despawnDuration = 0.25f;
 
     [Inject] private ConveyorModel _conveyor;
     [Inject] private ConveyorConfigSO _config;
     [Inject] private ShooterViewRegistry _registry;
 
     private Tween _rejectTween;
-    private int _parkedCount;
 
     private void Start()
     {
@@ -41,10 +40,10 @@ public class ConveyorView : MonoBehaviour
             .Subscribe(text => { if (slotCounter != null) slotCounter.text = text; })
             .AddTo(this);
 
-        _conveyor.OnInserted.Subscribe(OnInserted).AddTo(this);
+        _conveyor.OnJumpStarted.Subscribe(OnJumpStarted).AddTo(this);
         _conveyor.OnAttached.Subscribe(unit => { if (_registry.TryGet(unit.Shooter, out var v)) v.StopMotion(); }).AddTo(this);
         _conveyor.OnInsertRejected.Subscribe(_ => PlayRejectFeedback()).AddTo(this);
-        _conveyor.OnLapCompleted.Subscribe(OnLapCompleted).AddTo(this);
+        _conveyor.OnRemoved.Subscribe(OnRemoved).AddTo(this);
     }
 
     private void LateUpdate()
@@ -61,7 +60,7 @@ public class ConveyorView : MonoBehaviour
         }
     }
 
-    private void OnInserted(BeltUnit unit)
+    private void OnJumpStarted(BeltUnit unit)
     {
         if (!_registry.TryGet(unit.Shooter, out var view)) return;
         Vector3 entrance = _conveyor.Path.Evaluate(0f, out Vector3 forward);
@@ -69,15 +68,20 @@ public class ConveyorView : MonoBehaviour
         view.Face(RectConveyorPath.Inward(forward), _config.JumpDuration);
     }
 
-    // TODO(P7): thay bằng CacheTray — hiện chỉ xếp shooter cạnh cửa vào để không bị kẹt trên băng.
-    private void OnLapCompleted(ShooterModel shooter)
+    /// <summary>Shooter bị gỡ khỏi băng giữa chừng (hết đạn): thu nhỏ rồi trả về pool.</summary>
+    private void OnRemoved(ShooterModel shooter)
     {
+        if (shooter.State.CurrentValue != ShooterState.Dead) return;
         if (!_registry.TryGet(shooter, out var view)) return;
-        Vector3 entrance = _conveyor.Path.Evaluate(0f, out _);
-        Vector3 target = entrance + parkingOffset + Vector3.right * (_parkedCount++ * 1.2f);
-        view.JumpTo(target, _config.JumpDuration);
-        view.Face(Vector3.forward, _config.JumpDuration);
-        Debug.Log($"[Conveyor] Lap completed: {shooter} (P7 sẽ đưa vào khay chờ)");
+        _registry.Unregister(shooter);
+        view.StopMotion();
+        view.transform.DOScale(Vector3.zero, despawnDuration).SetEase(Ease.InBack).SetLink(view.gameObject)
+            .OnComplete(() =>
+            {
+                view.transform.localScale = Vector3.one;
+                if (shooterPool != null) shooterPool.Release(view);
+                else view.gameObject.SetActive(false);
+            });
     }
 
     private void DrawBelt()

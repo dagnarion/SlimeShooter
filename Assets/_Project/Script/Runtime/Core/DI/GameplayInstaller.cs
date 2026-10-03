@@ -9,6 +9,7 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
     #region Config
     [SerializeField] private BoardConfigSO boardConfig;
     [SerializeField] private ConveyorConfigSO conveyorConfig;
+    [SerializeField] private ShootingConfigSO shootingConfig;
     #endregion
 
     #region Scene refs
@@ -19,14 +20,16 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
 
     public void InstallBindings(ContainerBuilder builder)
     {
-        if (boardConfig == null || conveyorConfig == null || pixelBaseMaterial == null)
+        if (boardConfig == null || conveyorConfig == null || shootingConfig == null || pixelBaseMaterial == null)
         {
             Debug.LogError($"[GameplayInstaller] Thiếu config trên '{name}': boardConfig={boardConfig != null}, " +
-                           $"conveyorConfig={conveyorConfig != null}, pixelBaseMaterial={pixelBaseMaterial != null}", this);
+                           $"conveyorConfig={conveyorConfig != null}, shootingConfig={shootingConfig != null}, " +
+                           $"pixelBaseMaterial={pixelBaseMaterial != null}", this);
         }
 
         builder.RegisterValue(boardConfig);
         builder.RegisterValue(conveyorConfig);
+        builder.RegisterValue(shootingConfig);
 
         builder.RegisterType(typeof(GameSession), Lifetime.Singleton, Resolution.Lazy);
         builder.RegisterType(typeof(TickScheduler), Lifetime.Singleton, Resolution.Lazy);
@@ -82,8 +85,23 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
             return conveyor;
         }, Lifetime.Singleton, Resolution.Lazy);
 
-        // Eager: phải tồn tại ngay để subscribe sự kiện chọn shooter / kiểm tra end rush.
+        builder.RegisterFactory(container => new CacheTray(container.Resolve<LevelService>().Current.CacheSlots),
+            Lifetime.Singleton, Resolution.Lazy);
+
+        // Eager: phải tồn tại ngay để subscribe sự kiện chọn shooter / kiểm tra end rush / luật.
         builder.RegisterType(typeof(ConveyorController), Lifetime.Singleton, Resolution.Eager);
         builder.RegisterType(typeof(EndRushSystem), Lifetime.Singleton, Resolution.Eager);
+        builder.RegisterType(typeof(RuleSystem), Lifetime.Singleton, Resolution.Eager);
+
+        builder.RegisterFactory(container =>
+        {
+            // Resolve board + conveyor trước để chúng tick trước ShootingSystem.
+            var conveyor = container.Resolve<ConveyorModel>();
+            var board = container.Resolve<PixelBoard>();
+            var shooting = new ShootingSystem(conveyor, board, container.Resolve<BoardLayout>(),
+                container.Resolve<EndRushSystem>(), container.Resolve<ShootingConfigSO>());
+            container.Resolve<TickScheduler>().Register(shooting);
+            return shooting;
+        }, Lifetime.Singleton, Resolution.Eager);
     }
 }

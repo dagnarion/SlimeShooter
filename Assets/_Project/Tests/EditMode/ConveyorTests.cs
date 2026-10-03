@@ -131,6 +131,28 @@ public class ConveyorModelTests
     }
 
     [Test]
+    public void ManyInsertsAtOnce_JumpOneByOne()
+    {
+        var conveyor = Create(3);
+        var jumps = new List<ShooterModel>();
+        conveyor.OnJumpStarted.Subscribe(unit => jumps.Add(unit.Shooter));
+        var a = Shooter(0);
+        var b = Shooter(1);
+        var c = Shooter(2);
+        conveyor.TryInsert(a);
+        conveyor.TryInsert(b);
+        conveyor.TryInsert(c);
+
+        CollectionAssert.AreEqual(new[] { a }, jumps, "Chỉ con đầu hàng chờ nhảy ngay");
+
+        conveyor.Tick(InsertDelay + 1e-4f); // a vào băng -> b bắt đầu nhảy
+        CollectionAssert.AreEqual(new[] { a, b }, jumps);
+
+        for (int i = 0; i < 200; i++) conveyor.Tick(0.01f);
+        CollectionAssert.AreEqual(new[] { a, b, c }, jumps);
+    }
+
+    [Test]
     public void LapCompleted_RemovesUnit_FreesSlot()
     {
         var conveyor = Create(1);
@@ -187,6 +209,7 @@ public class EndRushSystemTests
     private ConveyorModel _conveyor;
     private ConveyorController _controller;
     private PixelBoard _board;
+    private CacheTray _tray;
     private EndRushSystem _rush;
 
     private void Build(int capacity, List<ColumnSpec> columns)
@@ -197,7 +220,8 @@ public class EndRushSystemTests
         _conveyor = new ConveyorModel(new RectConveyorPath(Vector3.zero, 5f, 5f, 0f), 5f, 1f, 0.1f, capacity);
         _controller = new ConveyorController(_pick, _conveyor);
         _board = new PixelBoard(1, 1, new[] { Red }, 0.1f);
-        _rush = new EndRushSystem(_session, _pick, _conveyor, _controller, _board, _columns);
+        _tray = new CacheTray(5);
+        _rush = new EndRushSystem(_session, _pick, _conveyor, _controller, _board, _columns, _tray);
         _session.StartPlaying();
     }
 
@@ -205,6 +229,7 @@ public class EndRushSystemTests
     public void TearDown()
     {
         _rush.Dispose();
+        _tray.Dispose();
         _controller.Dispose();
         _conveyor.Dispose();
         _columns.Dispose();

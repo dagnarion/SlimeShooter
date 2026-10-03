@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee68cb828ee53347864f27da8631021, type: 3}
+  m_Name: SO_BulletFxPool
+  m_EditorClassIdentifier: SlimeShooter.Runtime::BulletFxPoolSO
+  prefab: {fileID: 5876441386272977416, guid: 1607f5d29117a2a49bc8c1efb1b7a35c, type: 3}
+  Capacity: 64
+  MaxSize: 512

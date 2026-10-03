@@ -46,6 +46,7 @@ public class PixelBoard : ITickable, IDisposable
         }
 
         TotalCount = alive;
+        AliveCount = alive;
         _remaining = new ReactiveProperty<int>(alive);
     }
 
@@ -55,6 +56,9 @@ public class PixelBoard : ITickable, IDisposable
 
     /// <summary>Số ô chưa Dead (Alive + Breaking). Về 0 = thắng.</summary>
     public ReadOnlyReactiveProperty<int> Remaining => _remaining;
+
+    /// <summary>Số ô còn bắn được (chưa bị bắn).</summary>
+    public int AliveCount { get; private set; }
 
     public Observable<Vector2Int> OnCellBreaking => _onCellBreaking;
     public Observable<Vector2Int> OnCellDead => _onCellDead;
@@ -94,6 +98,47 @@ public class PixelBoard : ITickable, IDisposable
         return _states[index] == CellState.Alive && _colors[index] == colorId;
     }
 
+    /// <summary>Ô Alive cùng màu gần <paramref name="from"/> nhất (theo toạ độ lưới, liên tục). Dùng cho end rush.</summary>
+    public bool TryFindNearestAlive(int colorId, Vector2 from, out Vector2Int cell)
+    {
+        cell = default;
+        float best = float.MaxValue;
+        for (int i = 0; i < _states.Length; i++)
+        {
+            if (_states[i] != CellState.Alive || _colors[i] != colorId) continue;
+            var candidate = new Vector2Int(i % _width, i / _width);
+            float d = (candidate - from).sqrMagnitude;
+            if (d >= best) continue;
+            best = d;
+            cell = candidate;
+        }
+        return best < float.MaxValue;
+    }
+
+    /// <summary>Có ô màu này đang lộ ra (bắn được) từ bất kỳ cạnh nào không.</summary>
+    public bool HasExposed(int colorId)
+    {
+        for (int s = 0; s < 4; s++)
+        {
+            var side = (BoardSide)s;
+            int lines = LineCount(side);
+            for (int line = 0; line < lines; line++)
+            {
+                if (TryGetTarget(side, line, colorId, out _)) return true;
+            }
+        }
+        return false;
+    }
+
+    public bool HasAlive(int colorId)
+    {
+        for (int i = 0; i < _states.Length; i++)
+        {
+            if (_states[i] == CellState.Alive && _colors[i] == colorId) return true;
+        }
+        return false;
+    }
+
     public bool BeginBreak(Vector2Int cell)
     {
         if (!InBounds(cell)) return false;
@@ -101,6 +146,7 @@ public class PixelBoard : ITickable, IDisposable
         if (_states[index] != CellState.Alive) return false;
 
         _states[index] = CellState.Breaking;
+        AliveCount--;
         _onCellBreaking.OnNext(cell);
 
         if (_breakTime <= 0f)

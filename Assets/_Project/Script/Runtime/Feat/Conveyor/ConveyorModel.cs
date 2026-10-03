@@ -19,6 +19,8 @@ public class BeltUnit
     /// <summary>Distance của tick trước (để hệ thống bắn biết đoạn vừa đi qua).</summary>
     public float PreviousDistance;
     public int Laps;
+    /// <summary>Đã bắt đầu nhảy lên cửa (chỉ shooter đứng đầu hàng chờ mới nhảy).</summary>
+    public bool JumpStarted;
     internal float InsertTimer;
 }
 
@@ -38,6 +40,7 @@ public class ConveyorModel : ITickable, IDisposable
     private readonly ReactiveProperty<int> _available;
 
     private readonly Subject<BeltUnit> _onInserted = new Subject<BeltUnit>();
+    private readonly Subject<BeltUnit> _onJumpStarted = new Subject<BeltUnit>();
     private readonly Subject<BeltUnit> _onAttached = new Subject<BeltUnit>();
     private readonly Subject<ShooterModel> _onInsertRejected = new Subject<ShooterModel>();
     private readonly Subject<ShooterModel> _onLapCompleted = new Subject<ShooterModel>();
@@ -65,7 +68,10 @@ public class ConveyorModel : ITickable, IDisposable
     /// <summary>End rush: shooter chạy vòng liên tục, không rời băng.</summary>
     public bool IsLooping { get; set; }
 
+    /// <summary>Shooter được nhận (đã chiếm slot) — có thể còn phải chờ tới lượt nhảy.</summary>
     public Observable<BeltUnit> OnInserted => _onInserted;
+    /// <summary>Shooter bắt đầu nhảy lên cửa vào (view chạy animation nhảy ở đây).</summary>
+    public Observable<BeltUnit> OnJumpStarted => _onJumpStarted;
     public Observable<BeltUnit> OnAttached => _onAttached;
     public Observable<ShooterModel> OnInsertRejected => _onInsertRejected;
     /// <summary>Shooter chạy hết vòng (không looping) và đã rời băng.</summary>
@@ -98,6 +104,7 @@ public class ConveyorModel : ITickable, IDisposable
         shooter.SetState(ShooterState.MovingToBelt);
         RefreshAvailable();
         _onInserted.OnNext(unit);
+        StartHeadJump();
         return true;
     }
 
@@ -146,25 +153,37 @@ public class ConveyorModel : ITickable, IDisposable
 
     private void AttachPendingUnits(float deltaTime)
     {
-        // FIFO: chỉ shooter chờ lâu nhất được vào khi cửa thông.
+        // FIFO: chỉ shooter đứng đầu hàng chờ nhảy lên, vào băng khi nhảy xong và cửa thông.
+        var head = PendingHead();
+        if (head == null) return;
+
+        head.InsertTimer -= deltaTime;
+        if (head.InsertTimer > 0f || !IsEntranceClear()) return;
+
+        head.State = BeltUnitState.Moving;
+        head.Distance = 0f;
+        head.PreviousDistance = 0f;
+        head.Shooter.SetState(ShooterState.OnBelt);
+        _onAttached.OnNext(head);
+        StartHeadJump();
+    }
+
+    private BeltUnit PendingHead()
+    {
         foreach (var unit in _units)
         {
-            if (unit.State != BeltUnitState.Inserting) continue;
-            unit.InsertTimer -= deltaTime;
+            if (unit.State == BeltUnitState.Inserting) return unit;
         }
+        return null;
+    }
 
-        foreach (var unit in _units)
-        {
-            if (unit.State != BeltUnitState.Inserting) continue;
-            if (unit.InsertTimer > 0f || !IsEntranceClear()) return;
-
-            unit.State = BeltUnitState.Moving;
-            unit.Distance = 0f;
-            unit.PreviousDistance = 0f;
-            unit.Shooter.SetState(ShooterState.OnBelt);
-            _onAttached.OnNext(unit);
-            return;
-        }
+    private void StartHeadJump()
+    {
+        var head = PendingHead();
+        if (head == null || head.JumpStarted) return;
+        head.JumpStarted = true;
+        head.InsertTimer = _insertDelay;
+        _onJumpStarted.OnNext(head);
     }
 
     /// <summary>Không có shooter nào trong khoảng <c>spacing</c> trước hoặc sau cửa vào.</summary>
@@ -195,6 +214,7 @@ public class ConveyorModel : ITickable, IDisposable
         _capacity.Dispose();
         _available.Dispose();
         _onInserted.Dispose();
+        _onJumpStarted.Dispose();
         _onAttached.Dispose();
         _onInsertRejected.Dispose();
         _onLapCompleted.Dispose();

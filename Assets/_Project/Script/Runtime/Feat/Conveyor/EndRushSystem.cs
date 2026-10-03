@@ -15,13 +15,14 @@ public class EndRushSystem : IDisposable
     private readonly ConveyorController _conveyorController;
     private readonly PixelBoard _board;
     private readonly ShooterColumns _columns;
+    private readonly CacheTray _tray;
 
     private readonly ReactiveProperty<bool> _isActive = new ReactiveProperty<bool>(false);
     private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
     private bool _hasPicked;
 
     public EndRushSystem(GameSession session, ShooterPickService pickService, ConveyorModel conveyor,
-        ConveyorController conveyorController, PixelBoard board, ShooterColumns columns)
+        ConveyorController conveyorController, PixelBoard board, ShooterColumns columns, CacheTray tray)
     {
         _session = session;
         _pickService = pickService;
@@ -29,9 +30,11 @@ public class EndRushSystem : IDisposable
         _conveyorController = conveyorController;
         _board = board;
         _columns = columns;
+        _tray = tray;
 
         _pickService.OnPicked.Subscribe(_ => { _hasPicked = true; Check(); }).AddTo(_subscriptions);
         _columns.OnColumnChanged.Subscribe(_ => Check()).AddTo(_subscriptions);
+        _tray.OnChanged.Subscribe(_ => Check()).AddTo(_subscriptions);
         _conveyor.OnAttached.Subscribe(_ => Check()).AddTo(_subscriptions);
         _conveyor.OnLapCompleted.Subscribe(_ => Check()).AddTo(_subscriptions);
         _conveyor.OnRemoved.Subscribe(_ => Check()).AddTo(_subscriptions);
@@ -40,8 +43,8 @@ public class EndRushSystem : IDisposable
 
     public ReadOnlyReactiveProperty<bool> IsActive => _isActive;
 
-    /// <summary>Số shooter còn có thể bắn: đang chờ (cột, khay ở P7) + đang trên băng.</summary>
-    public int AliveShooterCount => _columns.RemainingInColumns + _conveyor.Units.Count;
+    /// <summary>Số shooter còn có thể bắn: đang chờ (cột + khay) + đang trên băng.</summary>
+    public int AliveShooterCount => _columns.RemainingInColumns + _tray.Count + _conveyor.Units.Count;
 
     public void Check()
     {
@@ -59,7 +62,7 @@ public class EndRushSystem : IDisposable
         _pickService.IsLocked = true;
 
         // Chụp danh sách trước vì SendToBelt làm cột thay đổi.
-        var waiting = new List<ShooterModel>();
+        var waiting = new List<ShooterModel>(_tray.Shooters);
         for (int c = 0; c < _columns.ColumnCount; c++) waiting.AddRange(_columns.GetColumn(c));
         foreach (var shooter in waiting) _conveyorController.SendToBelt(shooter);
     }
