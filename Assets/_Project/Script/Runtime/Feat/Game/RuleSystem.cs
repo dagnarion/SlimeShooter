@@ -46,6 +46,13 @@ public class RuleSystem : IDisposable
         _session.Lose();
     }
 
+    /// <summary>Sau khi revive: xoá trạng thái thua.</summary>
+    public void ClearLose()
+    {
+        LoseReason = LoseReason.None;
+        BlockedShooter = null;
+    }
+
     private void TryWin()
     {
         if (_session.IsPlaying) _session.Win();

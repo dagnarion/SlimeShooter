@@ -10,6 +10,7 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
     [SerializeField] private BoardConfigSO boardConfig;
     [SerializeField] private ConveyorConfigSO conveyorConfig;
     [SerializeField] private ShootingConfigSO shootingConfig;
+    [SerializeField] private BoosterConfigSO boosterConfig;
     #endregion
 
     #region Scene refs
@@ -18,13 +19,15 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
     [SerializeField] private Material pixelBaseMaterial;
     #endregion
 
+    [Min(0)] [SerializeField] private int maxRevivesPerLevel = 1;
+
     public void InstallBindings(ContainerBuilder builder)
     {
-        if (boardConfig == null || conveyorConfig == null || shootingConfig == null || pixelBaseMaterial == null)
+        if (boardConfig == null || conveyorConfig == null || shootingConfig == null || boosterConfig == null || pixelBaseMaterial == null)
         {
             Debug.LogError($"[GameplayInstaller] Thiếu config trên '{name}': boardConfig={boardConfig != null}, " +
                            $"conveyorConfig={conveyorConfig != null}, shootingConfig={shootingConfig != null}, " +
-                           $"pixelBaseMaterial={pixelBaseMaterial != null}", this);
+                           $"boosterConfig={boosterConfig != null}, pixelBaseMaterial={pixelBaseMaterial != null}", this);
         }
 
         builder.RegisterValue(boardConfig);
@@ -37,6 +40,25 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
         RegisterBoard(builder);
         RegisterShooters(builder);
         RegisterConveyor(builder);
+        RegisterFlow(builder);
+    }
+
+    private void RegisterFlow(ContainerBuilder builder)
+    {
+        builder.RegisterType(typeof(LevelProgressSystem), Lifetime.Singleton, Resolution.Eager);
+        builder.RegisterFactory(container => new ReviveService(container.Resolve<GameSession>(),
+                container.Resolve<RuleSystem>(), container.Resolve<CacheTray>(), maxRevivesPerLevel),
+            Lifetime.Singleton, Resolution.Lazy);
+        builder.RegisterType(typeof(GameFlowService), Lifetime.Singleton, Resolution.Lazy);
+
+        if (boosterConfig != null) builder.RegisterValue(boosterConfig);
+        builder.RegisterFactory(container => new BoosterService(
+                container.Resolve<GameSession>(), container.Resolve<ISaveService>(), container.Resolve<BoosterConfigSO>(),
+                container.Resolve<ConveyorModel>(), container.Resolve<ConveyorController>(), container.Resolve<ShooterColumns>(),
+                container.Resolve<CacheTray>(), container.Resolve<PixelBoard>(), container.Resolve<ShooterPickService>(),
+                container.Resolve<EndRushSystem>(), container.Resolve<LevelProgressSystem>().PlayedLevelNumber,
+                container.Resolve<LevelService>().Current.Seed),
+            Lifetime.Singleton, Resolution.Lazy);
     }
 
     private void RegisterBoard(ContainerBuilder builder)

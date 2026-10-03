@@ -11,6 +11,7 @@ public class ProjectInstaller : MonoBehaviour, IInstaller
     public void InstallBindings(ContainerBuilder builder)
     {
         builder.RegisterType(typeof(PlayerPrefsSaveService), new[] { typeof(ISaveService) }, Lifetime.Singleton, Resolution.Lazy);
+        builder.RegisterType(typeof(SceneLoader), new[] { typeof(ISceneLoader) }, Lifetime.Singleton, Resolution.Lazy);
 
         if (levelDatabase != null)
         {

@@ -9,6 +9,11 @@ public class BoardView : MonoBehaviour
     [SerializeField] private PixelViewPoolSO pixelPool;
     [SerializeField] private Transform pixelRoot;
 
+    [Header("Nền board (placeholder)")]
+    [SerializeField] private Material backplateMaterial;
+    [SerializeField] private float backplatePadding = 0.4f;
+    [SerializeField] private float backplateY = -0.6f;
+
     [Inject] private PixelBoard _board;
     [Inject] private BoardLayout _layout;
     [Inject] private BoardConfigSO _config;
@@ -18,6 +23,7 @@ public class BoardView : MonoBehaviour
 
     private void Start()
     {
+        BuildBackplate();
         Build();
 
         _board.OnCellBreaking
@@ -41,6 +47,21 @@ public class BoardView : MonoBehaviour
             view.Setup(cell, _layout.CellToWorld(cell), _config.CellSize, _materials.Get(_board.ColorAt(cell)));
             _views[cell] = view;
         }
+    }
+
+    private void BuildBackplate()
+    {
+        if (backplateMaterial == null) return;
+        var plate = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        plate.name = "Backplate";
+        Destroy(plate.GetComponent<Collider>());
+        plate.transform.SetParent(transform, false);
+        var bounds = _layout.WorldBounds;
+        plate.transform.position = new Vector3(bounds.center.x, backplateY, bounds.center.z);
+        plate.transform.localScale = new Vector3(bounds.size.x + backplatePadding * 2f, 0.2f, bounds.size.z + backplatePadding * 2f);
+        var renderer = plate.GetComponent<MeshRenderer>();
+        renderer.sharedMaterial = backplateMaterial;
+        renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     private void PlayBreak(Vector2Int cell)

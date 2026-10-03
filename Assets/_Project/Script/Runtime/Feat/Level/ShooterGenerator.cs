@@ -14,11 +14,27 @@ public static class ShooterGenerator
         /// <summary>Các mức ammo cho phép, ví dụ {10, 20, 30}. Phần lẻ nhỏ hơn mức nhỏ nhất được cộng vào shooter cuối của màu đó.</summary>
         public int[] AmmoSteps;
         public int Seed;
+        /// <summary>
+        /// > 0: bỏ qua AmmoSteps, tự tính bậc ammo sao cho tổng số shooter xấp xỉ giá trị này
+        /// (nhiều shooter hơn số slot băng chuyền = level khó hơn, end rush tới muộn hơn).
+        /// </summary>
+        public int TargetShooterCount;
+    }
+
+    /// <summary>Bậc ammo quanh mức trung bình để đạt khoảng <paramref name="target"/> shooter.</summary>
+    public static int[] StepsForTarget(int totalPixels, int target)
+    {
+        int average = Math.Max(1, (int)Math.Round(totalPixels / (double)Math.Max(1, target)));
+        return new[] { Math.Max(1, (int)Math.Round(average * 0.6)), average, Math.Max(1, (int)Math.Round(average * 1.4)) }
+            .Distinct().OrderBy(s => s).ToArray();
     }
 
     public static List<ColumnSpec> Generate(IReadOnlyDictionary<int, int> pixelsPerColor, Settings settings)
     {
-        var steps = (settings.AmmoSteps ?? Array.Empty<int>()).Where(s => s > 0).Distinct().OrderBy(s => s).ToArray();
+        var requested = settings.TargetShooterCount > 0
+            ? StepsForTarget(pixelsPerColor.Values.Sum(), settings.TargetShooterCount)
+            : settings.AmmoSteps;
+        var steps = (requested ?? Array.Empty<int>()).Where(s => s > 0).Distinct().OrderBy(s => s).ToArray();
         if (steps.Length == 0) throw new ArgumentException("AmmoSteps phải có ít nhất một giá trị > 0");
 
         var random = new Random(settings.Seed);

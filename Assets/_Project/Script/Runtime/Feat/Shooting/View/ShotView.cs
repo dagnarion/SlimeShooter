@@ -1,4 +1,3 @@
-using DG.Tweening;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
@@ -32,6 +31,6 @@ public class ShotView : MonoBehaviour
         bullet.Launch(from, to, _boardConfig.BulletTravelTime, _materials.Get(shot.Shooter.ColorId), shot.IsRush,
             () => bulletPool.Release(bullet));
 
-        shooterView.transform.DOPunchScale(Vector3.one * 0.12f, 0.12f, 4, 0.5f).SetLink(shooterView.gameObject);
+        shooterView.PlayRecoil();
     }
 }

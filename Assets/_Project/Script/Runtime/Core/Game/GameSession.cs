@@ -16,6 +16,7 @@ public class GameSession : IDisposable
     public bool Resume() => TryTransition(GameState.Paused, GameState.Playing);
     public bool Win() => TryTransition(GameState.Playing, GameState.Won);
     public bool Lose() => TryTransition(GameState.Playing, GameState.Lost);
+    public bool Revive() => TryTransition(GameState.Lost, GameState.Playing);
 
     /// <summary>Retry / next level: mọi trạng thái đều có thể quay về Loading.</summary>
     public void Reload() => _state.Value = GameState.Loading;

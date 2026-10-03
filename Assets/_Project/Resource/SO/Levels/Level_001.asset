@@ -12,29 +12,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7570529ab7f7a4541b312d0eb9dc5397, type: 3}
   m_Name: Level_001
   m_EditorClassIdentifier: SlimeShooter.Runtime::LevelSO
-  palette: {fileID: 11400000, guid: 1159c20af2a8e10459adc0e76eaafd7e, type: 2}
+  palette: {fileID: 577456594147493881}
   width: 11
   height: 10
-  cells: ffffffffffffffffffffffffffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff00000000080000000000000000000000ffffffff00000000000000000000000000000000ffffffffffffffffffffffff0000000000000000ffffffffffffffffffffffff0000000000000000ffffffffffffffff
+  cells: ffffffffffffffffffffffffffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff00000000010000000000000000000000ffffffff00000000000000000000000000000000ffffffffffffffffffffffff0000000000000000ffffffffffffffffffffffff0000000000000000ffffffffffffffff
   columns:
   - shooters:
     - colorId: 0
-      ammo: 10
+      ammo: 5
     - colorId: 0
-      ammo: 10
-  - shooters:
-    - colorId: 0
-      ammo: 10
-    - colorId: 0
-      ammo: 18
-  - shooters:
-    - colorId: 8
+      ammo: 3
+    - colorId: 1
       ammo: 2
     - colorId: 0
-      ammo: 20
+      ammo: 3
+  - shooters:
+    - colorId: 0
+      ammo: 3
+    - colorId: 0
+      ammo: 3
+    - colorId: 0
+      ammo: 3
+    - colorId: 0
+      ammo: 7
+  - shooters:
+    - colorId: 0
+      ammo: 7
+    - colorId: 0
+      ammo: 7
+    - colorId: 0
+      ammo: 3
+    - colorId: 0
+      ammo: 3
+  - shooters:
+    - colorId: 0
+      ammo: 3
+    - colorId: 0
+      ammo: 4
+    - colorId: 0
+      ammo: 7
+    - colorId: 0
+      ammo: 7
   conveyorSlots: 5
   cacheSlots: 5
   sourceTexturePath: Assets/_Project/Resource/ART/LevelSources/LV_001_Heart.png
-  generatorColumnCount: 3
-  generatorAmmoSteps: 0a00000014000000
+  generatorColumnCount: 4
+  generatorAmmoSteps: 0a000000140000001e000000
   seed: 1000
+--- !u!114 &577456594147493881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fa48fed025d7d4c82affb32ad8dfff, type: 3}
+  m_Name: Level_001_Palette
+  m_EditorClassIdentifier: SlimeShooter.Runtime::PaletteSO
+  entries:
+  - id: 0
+    name: '#E63946'
+    color:
+      serializedVersion: 2
+      rgba: 4282792422
+  - id: 1
+    name: '#F078B4'
+    color:
+      serializedVersion: 2
+      rgba: 4290017520

@@ -7,7 +7,8 @@ using UnityEngine;
 /// <summary>Hiển thị một shooter. Collider trên layer Shooter để nhận click.</summary>
 public class ShooterView : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer bodyRenderer;
+    [Tooltip("Các phần được tô màu theo palette (thân, nòng...).")]
+    [SerializeField] private Renderer[] colorRenderers;
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Transform visual;
 
@@ -15,13 +16,28 @@ public class ShooterView : MonoBehaviour
     private Tween _moveTween;
     private Tween _feedbackTween;
     private Tween _faceTween;
+    private Tween _recoilTween;
     private Quaternion _visualBaseRotation = Quaternion.identity;
+    private Vector3 _visualBaseScale = Vector3.one;
 
     public ShooterModel Model { get; private set; }
 
     private void Awake()
     {
-        if (visual != null) _visualBaseRotation = visual.localRotation;
+        if (visual != null)
+        {
+            _visualBaseRotation = visual.localRotation;
+            _visualBaseScale = visual.localScale;
+        }
+    }
+
+    /// <summary>Giật nhẹ khi bắn. Hoàn tất cú giật trước để scale không bị cộng dồn khi bắn liên tục (rush).</summary>
+    public void PlayRecoil()
+    {
+        if (visual == null) return;
+        _recoilTween?.Complete();
+        visual.localScale = _visualBaseScale;
+        _recoilTween = visual.DOPunchScale(_visualBaseScale * 0.12f, 0.12f, 4, 0.5f).SetLink(gameObject);
     }
 
     /// <summary>Quay phần thân về hướng <paramref name="direction"/> (text ammo giữ nguyên để luôn đọc được).</summary>
@@ -38,7 +54,10 @@ public class ShooterView : MonoBehaviour
     {
         Unbind();
         Model = model;
-        bodyRenderer.sharedMaterial = material;
+        foreach (var renderer in colorRenderers)
+        {
+            if (renderer != null) renderer.sharedMaterial = material;
+        }
         _binding = model.Ammo.Subscribe(ammo => ammoText.text = ammo.ToString());
     }
 
@@ -83,6 +102,8 @@ public class ShooterView : MonoBehaviour
     private void OnDisable()
     {
         _faceTween?.Kill();
+        _recoilTween?.Kill();
+        if (visual != null) visual.localScale = _visualBaseScale;
         _moveTween?.Kill();
         _feedbackTween?.Kill(true);
         Unbind();

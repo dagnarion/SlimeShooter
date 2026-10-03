@@ -32,7 +32,8 @@ public class EndRushSystem : IDisposable
         _columns = columns;
         _tray = tray;
 
-        _pickService.OnPicked.Subscribe(_ => { _hasPicked = true; Check(); }).AddTo(_subscriptions);
+        // Bất kỳ shooter nào lên băng (chọn tay, booster Pickup...) đều tính là đã bắt đầu chơi.
+        _conveyor.OnInserted.Subscribe(_ => { _hasPicked = true; Check(); }).AddTo(_subscriptions);
         _columns.OnColumnChanged.Subscribe(_ => Check()).AddTo(_subscriptions);
         _tray.OnChanged.Subscribe(_ => Check()).AddTo(_subscriptions);
         _conveyor.OnAttached.Subscribe(_ => Check()).AddTo(_subscriptions);

@@ -40,6 +40,25 @@ public static class LevelBaker
         return new BakeResult { Cells = cells, MaxColorDistance = maxDistance };
     }
 
+    /// <summary>
+    /// Lấy đúng các màu Color32 có trong ảnh (giữ nguyên tuyệt đối, không làm tròn về palette chung).
+    /// Mỗi màu khác nhau thành một id, theo thứ tự xuất hiện.
+    /// </summary>
+    public static List<PaletteEntry> ExtractColors(Color32[] pixels, byte alphaThreshold = 128)
+    {
+        var entries = new List<PaletteEntry>();
+        var seen = new HashSet<Color32>();
+        foreach (var raw in pixels)
+        {
+            if (raw.a < alphaThreshold) continue;
+            var color = raw;
+            color.a = 255;
+            if (!seen.Add(color)) continue;
+            entries.Add(new PaletteEntry(entries.Count, "#" + ColorUtility.ToHtmlStringRGB(color), color));
+        }
+        return entries;
+    }
+
     /// <summary>Đếm số pixel của mỗi màu (bỏ ô trống).</summary>
     public static Dictionary<int, int> CountPerColor(IReadOnlyList<int> cells)
     {

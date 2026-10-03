@@ -9,7 +9,7 @@ public class CacheTrayView : MonoBehaviour
 {
     [SerializeField] private Material slotMaterial;
     [SerializeField] private float slotSpacing = 1.5f;
-    [SerializeField] private Vector3 slotSize = new Vector3(1.3f, 0.1f, 1.3f);
+    [SerializeField] private Vector3 slotSize = new Vector3(1.25f, 0.06f, 1.25f);
     [Tooltip("Khoảng cách từ mép dưới băng chuyền tới hàng khay.")]
     [SerializeField] private float offsetBelowBelt = 1.6f;
     [SerializeField] private Color slotColor = new Color(0.18f, 0.2f, 0.28f);
@@ -50,7 +50,7 @@ public class CacheTrayView : MonoBehaviour
     {
         while (_slots.Count < capacity)
         {
-            var slot = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var slot = GameObject.CreatePrimitive(PrimitiveType.Cylinder); // đế tròn (placeholder)
             slot.name = $"TraySlot_{_slots.Count}";
             Destroy(slot.GetComponent<Collider>());
             slot.transform.SetParent(transform, false);

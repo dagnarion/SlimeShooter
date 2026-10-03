@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Dựng toàn bộ model gameplay giống GameplayInstaller nhưng không cần scene/view,
-/// để test tích hợp và autoplay chạy được trong EditMode.
+/// Dựng toàn bộ model gameplay giống GameplayInstaller nhưng không cần scene/view.
+/// Dùng cho test tích hợp, autoplay, và tool sinh level (chấm thử level ngay trong editor).
 /// </summary>
 public sealed class GameplaySim : IDisposable
 {

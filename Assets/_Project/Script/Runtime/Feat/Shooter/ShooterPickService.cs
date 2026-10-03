@@ -24,9 +24,16 @@ public class ShooterPickService : IDisposable
     /// <summary>Khoá input của người chơi (end rush, tutorial...).</summary>
     public bool IsLocked { get; set; }
 
+    /// <summary>
+    /// Khi khác null, cú chạm vào shooter được chuyển cho booster đang chờ chọn mục tiêu (Pickup, ColorBomb)
+    /// thay vì chọn như bình thường. Trả về true nếu đã xử lý.
+    /// </summary>
+    public Func<ShooterModel, bool> Interceptor { get; set; }
+
     public bool TryPick(ShooterModel shooter)
     {
         if (shooter == null || IsLocked || !_session.IsPlaying) return false;
+        if (Interceptor != null) return Interceptor(shooter);
 
         var container = shooter.Container;
         if (container == null || !container.CanPick(shooter))

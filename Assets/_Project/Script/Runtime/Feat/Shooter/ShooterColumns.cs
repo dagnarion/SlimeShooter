@@ -79,6 +79,26 @@ public class ShooterColumns : IShooterContainer, IDisposable
         return true;
     }
 
+    /// <summary>Xáo shooter giữa các cột, giữ nguyên số lượng mỗi cột (booster Shuffle).</summary>
+    public void Shuffle(Random random)
+    {
+        var pool = new List<ShooterModel>();
+        foreach (var column in _columns) pool.AddRange(column);
+
+        for (int i = pool.Count - 1; i > 0; i--)
+        {
+            int j = random.Next(i + 1);
+            (pool[i], pool[j]) = (pool[j], pool[i]);
+        }
+
+        int index = 0;
+        foreach (var column in _columns)
+        {
+            for (int r = 0; r < column.Count; r++) column[r] = pool[index++];
+        }
+        for (int c = 0; c < _columns.Count; c++) _onColumnChanged.OnNext(c);
+    }
+
     public void Dispose()
     {
         _onColumnChanged.Dispose();

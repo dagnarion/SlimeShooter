@@ -12,30 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7570529ab7f7a4541b312d0eb9dc5397, type: 3}
   m_Name: Level_003
   m_EditorClassIdentifier: SlimeShooter.Runtime::LevelSO
-  palette: {fileID: 11400000, guid: 1159c20af2a8e10459adc0e76eaafd7e, type: 2}
+  palette: {fileID: 1347785651541486041}
   width: 11
   height: 14
-  cells: ffffffffffffffff09000000090000000900000009000000090000000900000009000000ffffffffffffffffffffffffffffffffffffffff0900000009000000090000000900000009000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff090000000900000009000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff090000000900000009000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff090000000900000009000000ffffffffffffffffffffffffffffffffffffffffffffffff03000000030000000400000003000000030000000300000003000000ffffffffffffffffffffffff030000000300000003000000030000000300000003000000030000000400000003000000ffffffff03000000030000000300000003000000030000000400000003000000030000000300000003000000030000000300000003000000040000000300000003000000030000000300000003000000030000000400000003000000ffffffff030000000300000003000000030000000300000004000000030000000300000003000000ffffffffffffffff030000000300000004000000030000000300000003000000030000000300000003000000ffffffffffffffffffffffff03000000030000000300000003000000030000000400000003000000ffffffffffffffffffffffffffffffffffffffff0300000003000000040000000300000003000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff030000000300000003000000ffffffffffffffffffffffffffffffff
+  cells: ffffffffffffffff00000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff01000000010000000200000001000000010000000100000001000000ffffffffffffffffffffffff010000000100000001000000010000000100000001000000010000000200000001000000ffffffff01000000010000000100000001000000010000000200000001000000010000000100000001000000010000000100000001000000020000000100000001000000010000000100000001000000010000000200000001000000ffffffff010000000100000001000000010000000100000002000000010000000100000001000000ffffffffffffffff010000000100000002000000010000000100000001000000010000000100000001000000ffffffffffffffffffffffff01000000010000000100000001000000010000000200000001000000ffffffffffffffffffffffffffffffffffffffff0100000001000000020000000100000001000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff010000000100000001000000ffffffffffffffffffffffffffffffff
   columns:
   - shooters:
-    - colorId: 3
-      ammo: 22
-    - colorId: 4
+    - colorId: 2
       ammo: 9
+    - colorId: 1
+      ammo: 10
+    - colorId: 1
+      ammo: 4
   - shooters:
-    - colorId: 9
-      ammo: 21
-    - colorId: 3
-      ammo: 20
+    - colorId: 1
+      ammo: 10
+    - colorId: 1
+      ammo: 7
+    - colorId: 1
+      ammo: 7
   - shooters:
-    - colorId: 3
+    - colorId: 0
+      ammo: 7
+    - colorId: 0
+      ammo: 10
+    - colorId: 1
       ammo: 10
   - shooters:
-    - colorId: 3
+    - colorId: 1
       ammo: 10
+    - colorId: 0
+      ammo: 4
+    - colorId: 1
+      ammo: 4
   conveyorSlots: 5
   cacheSlots: 5
   sourceTexturePath: Assets/_Project/Resource/ART/LevelSources/LV_003_Tree.png
   generatorColumnCount: 4
-  generatorAmmoSteps: 0a0000000f00000014000000
+  generatorAmmoSteps: 0a000000140000001e000000
   seed: 1002
+--- !u!114 &1347785651541486041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fa48fed025d7d4c82affb32ad8dfff, type: 3}
+  m_Name: Level_003_Palette
+  m_EditorClassIdentifier: SlimeShooter.Runtime::PaletteSO
+  entries:
+  - id: 0
+    name: '#8C5A32'
+    color:
+      serializedVersion: 2
+      rgba: 4281490060
+  - id: 1
+    name: '#46BE50'
+    color:
+      serializedVersion: 2
+      rgba: 4283481670
+  - id: 2
+    name: '#1E783C'
+    color:
+      serializedVersion: 2
+      rgba: 4282152990

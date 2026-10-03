@@ -10,10 +10,22 @@ public class LevelGeneratorWindow : EditorWindow
 
     private Texture2D _texture;
     private PaletteSO _palette;
+    private PaletteSO _drawPalette;
+    private bool _exactColors = true;
     private LevelSO _target;
     private string _newLevelName = "Level_001";
     private int _columnCount = 4;
+    private int _targetShooters = 16;
     private string _ammoSteps = "10,20,30";
+
+    // Batch
+    private DefaultAsset _batchFolder;
+    private int _batchStartNumber = 1;
+    private LevelDatabaseSO _batchDatabase;
+    private bool _batchReplaceDatabase;
+    private bool _batchSimulate = true;
+    private List<LevelBatchBuilder.Report> _batchReports;
+    private string _simReport;
     private int _seed = 1;
     private int _conveyorSlots = 5;
     private int _cacheSlots = 5;
@@ -41,7 +53,42 @@ public class LevelGeneratorWindow : EditorWindow
             DrawPreview(_preview.Value);
         }
 
+        EditorGUILayout.Space(12);
+        DrawBatchSection();
+
         EditorGUILayout.EndScrollView();
+    }
+
+    private void DrawBatchSection()
+    {
+        EditorGUILayout.LabelField("Sinh hàng loạt từ thư mục ảnh", EditorStyles.boldLabel);
+        EditorGUILayout.HelpBox("Mỗi ảnh PNG trong thư mục (sắp theo tên) → Level_NNN.asset, dùng các tham số ở trên. " +
+                                "Seed tăng dần theo từng ảnh. Bot sẽ chơi thử từng level để báo kết quả.", MessageType.None);
+        _batchFolder = (DefaultAsset)EditorGUILayout.ObjectField("Thư mục ảnh", _batchFolder, typeof(DefaultAsset), false);
+        _batchStartNumber = Mathf.Max(1, EditorGUILayout.IntField("Số level bắt đầu", _batchStartNumber));
+        _batchDatabase = (LevelDatabaseSO)EditorGUILayout.ObjectField("Thêm vào database", _batchDatabase, typeof(LevelDatabaseSO), false);
+        using (new EditorGUI.DisabledScope(_batchDatabase == null))
+            _batchReplaceDatabase = EditorGUILayout.Toggle("Thay toàn bộ database", _batchReplaceDatabase);
+        _batchSimulate = EditorGUILayout.Toggle("Bot chơi thử", _batchSimulate);
+
+        string folder = _batchFolder != null ? AssetDatabase.GetAssetPath(_batchFolder) : null;
+        bool ready = !string.IsNullOrEmpty(folder) && AssetDatabase.IsValidFolder(folder) && (_exactColors || _palette != null);
+        using (new EditorGUI.DisabledScope(!ready))
+        {
+            if (GUILayout.Button("Sinh hàng loạt"))
+            {
+                _batchReports = LevelBatchBuilder.Build(folder, DefaultOutputFolder, BuildOptions(), _batchStartNumber,
+                    _batchDatabase, _batchReplaceDatabase, _batchSimulate);
+                foreach (var report in _batchReports) Debug.Log("[LevelBatch] " + report);
+            }
+        }
+
+        if (_batchReports == null) return;
+        foreach (var report in _batchReports)
+        {
+            var type = !report.Valid || (_batchSimulate && report.BotResult != GameState.Won) ? MessageType.Warning : MessageType.Info;
+            EditorGUILayout.HelpBox(report.ToString(), type);
+        }
     }
 
     private void DrawTargetSection()
@@ -62,9 +109,16 @@ public class LevelGeneratorWindow : EditorWindow
     {
         EditorGUILayout.LabelField("Nguồn & tham số", EditorStyles.boldLabel);
         _texture = (Texture2D)EditorGUILayout.ObjectField("Ảnh nguồn", _texture, typeof(Texture2D), false);
-        _palette = (PaletteSO)EditorGUILayout.ObjectField("Palette", _palette, typeof(PaletteSO), false);
+        _exactColors = EditorGUILayout.Toggle(new GUIContent("Giữ màu Color32 của ảnh",
+            "Bật: mỗi màu trong ảnh là một màu riêng, giữ đúng tuyệt đối (palette lưu trong level). " +
+            "Tắt: làm tròn về palette chung."), _exactColors);
+        using (new EditorGUI.DisabledScope(_exactColors))
+            _palette = (PaletteSO)EditorGUILayout.ObjectField("Palette chung", _palette, typeof(PaletteSO), false);
         _columnCount = Mathf.Max(1, EditorGUILayout.IntField("Số cột shooter", _columnCount));
-        _ammoSteps = EditorGUILayout.TextField(new GUIContent("Bậc ammo", "Các mức ammo, cách nhau bởi dấu phẩy"), _ammoSteps);
+        _targetShooters = Mathf.Max(0, EditorGUILayout.IntField(new GUIContent("Số shooter mục tiêu",
+            "> 0: tự tính bậc ammo để có khoảng chừng này shooter (nên > số slot băng chuyền × 2). 0: dùng 'Bậc ammo'."), _targetShooters));
+        using (new EditorGUI.DisabledScope(_targetShooters > 0))
+            _ammoSteps = EditorGUILayout.TextField(new GUIContent("Bậc ammo", "Các mức ammo, cách nhau bởi dấu phẩy"), _ammoSteps);
         _seed = EditorGUILayout.IntField("Seed", _seed);
         _conveyorSlots = Mathf.Max(1, EditorGUILayout.IntField("Slot băng chuyền", _conveyorSlots));
         _cacheSlots = Mathf.Max(1, EditorGUILayout.IntField("Ô khay chờ", _cacheSlots));
@@ -73,8 +127,8 @@ public class LevelGeneratorWindow : EditorWindow
 
     private void DrawActions()
     {
-        bool ready = _texture != null && _palette != null && ParseSteps().Length > 0;
-        if (!ready) EditorGUILayout.HelpBox("Cần ảnh nguồn, palette và ít nhất một bậc ammo > 0.", MessageType.Info);
+        bool ready = _texture != null && (_exactColors || _palette != null) && (_targetShooters > 0 || ParseSteps().Length > 0);
+        if (!ready) EditorGUILayout.HelpBox("Cần ảnh nguồn, palette (khi không giữ màu ảnh) và số shooter mục tiêu hoặc bậc ammo.", MessageType.Info);
 
         using (new EditorGUI.DisabledScope(!ready))
         using (new EditorGUILayout.HorizontalScope())
@@ -89,13 +143,21 @@ public class LevelGeneratorWindow : EditorWindow
         }
 
         using (new EditorGUI.DisabledScope(_target == null))
+        using (new EditorGUILayout.HorizontalScope())
         {
             if (GUILayout.Button("Validate level có sẵn"))
             {
                 var result = LevelValidator.Validate(_target);
                 EditorUtility.DisplayDialog("Validate", $"{_target.name}\n\n{result}", "OK");
             }
+            if (GUILayout.Button("Bot chơi thử level"))
+            {
+                var report = new LevelBatchBuilder.Report { LevelName = _target.name, Source = "-", Valid = LevelValidator.Validate(_target).IsValid, RushAt = -1f };
+                if (report.Valid) LevelBatchBuilder.Simulate(_target, ref report);
+                _simReport = report.ToString();
+            }
         }
+        if (!string.IsNullOrEmpty(_simReport)) EditorGUILayout.HelpBox(_simReport, MessageType.Info);
     }
 
     private void Generate()
@@ -122,7 +184,10 @@ public class LevelGeneratorWindow : EditorWindow
 
     private void LoadFromTarget()
     {
-        _palette = _target.Palette != null ? _target.Palette : _palette;
+        // Palette nằm trong chính file level => level được sinh ở chế độ giữ màu Color32.
+        bool embedded = _target.Palette != null && AssetDatabase.GetAssetPath(_target.Palette) == AssetDatabase.GetAssetPath(_target);
+        _exactColors = embedded;
+        if (!embedded && _target.Palette != null) _palette = _target.Palette;
         if (!string.IsNullOrEmpty(_target.SourceTexturePath))
             _texture = AssetDatabase.LoadAssetAtPath<Texture2D>(_target.SourceTexturePath);
         _columnCount = _target.GeneratorColumnCount;
@@ -136,8 +201,10 @@ public class LevelGeneratorWindow : EditorWindow
     private LevelAssetBuilder.Options BuildOptions() => new LevelAssetBuilder.Options
     {
         Palette = _palette,
+        ExactColors = _exactColors,
         ColumnCount = _columnCount,
         AmmoSteps = ParseSteps(),
+        TargetShooterCount = _targetShooters,
         Seed = _seed,
         ConveyorSlots = _conveyorSlots,
         CacheSlots = _cacheSlots,
@@ -155,6 +222,8 @@ public class LevelGeneratorWindow : EditorWindow
     #region Preview drawing
     private void DrawPreview(LevelAssetBuilder.Preview preview)
     {
+        _drawPalette = preview.Palette;
+        if (_drawPalette == null) return;
         EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
         EditorGUILayout.HelpBox(preview.Validation.IsValid ? "Validator: OK (Σammo = Σpixel cho mọi màu)" : preview.Validation.ToString(),
             preview.Validation.IsValid ? MessageType.Info : MessageType.Error);
@@ -181,7 +250,7 @@ public class LevelGeneratorWindow : EditorWindow
             if (id == LevelSO.EmptyCell) continue;
             // y = 0 là hàng dưới cùng -> vẽ ở đáy.
             var rect = new Rect(area.x + x * cell, area.y + (preview.Height - 1 - y) * cell, cell - 1f, cell - 1f);
-            EditorGUI.DrawRect(rect, _palette.GetColor(id));
+            EditorGUI.DrawRect(rect, _drawPalette.GetColor(id));
         }
     }
 
@@ -201,7 +270,7 @@ public class LevelGeneratorWindow : EditorWindow
             using (new EditorGUILayout.HorizontalScope())
             {
                 DrawSwatch(pair.Key);
-                _palette.TryGetEntry(pair.Key, out var entry);
+                _drawPalette.TryGetEntry(pair.Key, out var entry);
                 ammo.TryGetValue(pair.Key, out int ammoCount);
                 EditorGUILayout.LabelField($"{pair.Key} {entry.name}", GUILayout.Width(140));
                 EditorGUILayout.LabelField($"{pair.Value} / {ammoCount}");
@@ -234,7 +303,7 @@ public class LevelGeneratorWindow : EditorWindow
     private void DrawSwatch(int colorId)
     {
         Rect rect = GUILayoutUtility.GetRect(16, 16, GUILayout.Width(16));
-        EditorGUI.DrawRect(rect, _palette.GetColor(colorId));
+        EditorGUI.DrawRect(rect, _drawPalette.GetColor(colorId));
     }
     #endregion
 }

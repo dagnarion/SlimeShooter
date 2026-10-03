@@ -46,6 +46,25 @@ public class LevelBakerTests
     }
 
     [Test]
+    public void ExtractColors_KeepsExactColor32_InOrderOfAppearance()
+    {
+        var a = new Color32(201, 13, 77, 255);
+        var b = new Color32(202, 13, 77, 255); // lệch 1 đơn vị vẫn là màu khác
+        var clear = new Color32(0, 0, 0, 0);
+        var entries = LevelBaker.ExtractColors(new[] { a, clear, b, a });
+
+        Assert.AreEqual(2, entries.Count);
+        Assert.AreEqual(a, entries[0].color);
+        Assert.AreEqual(b, entries[1].color);
+
+        var palette = ScriptableObject.CreateInstance<PaletteSO>();
+        palette.SetEntries(entries);
+        var bake = LevelBaker.Bake(new[] { a, clear, b, a }, 2, 2, palette);
+        CollectionAssert.AreEqual(new[] { 0, LevelSO.EmptyCell, 1, 0 }, bake.Cells);
+        Assert.AreEqual(0f, bake.MaxColorDistance);
+    }
+
+    [Test]
     public void CountPerColor_IgnoresEmpty()
     {
         var counts = LevelBaker.CountPerColor(new[] { Red, Red, LevelSO.EmptyCell, Blue });
@@ -96,6 +115,20 @@ public class ShooterGeneratorTests
 
         Assert.IsTrue(sizes.All(s => s > 0));
         Assert.LessOrEqual(sizes.Max() - sizes.Min(), 1);
+    }
+
+    [Test]
+    public void TargetShooterCount_GivesRoughlyThatManyShooters_AndKeepsBalance()
+    {
+        var pixels = new Dictionary<int, int> { { Red, 70 }, { Green, 40 }, { Blue, 18 } }; // 128 px
+        var columns = ShooterGenerator.Generate(pixels, new ShooterGenerator.Settings { ColumnCount = 4, TargetShooterCount = 16, Seed = 5 });
+        int count = columns.Sum(c => c.shooters.Count);
+        var ammo = columns.SelectMany(c => c.shooters).GroupBy(s => s.colorId).ToDictionary(g => g.Key, g => g.Sum(s => s.ammo));
+
+        Assert.That(count, Is.InRange(12, 24), $"được {count} shooter");
+        Assert.AreEqual(70, ammo[Red]);
+        Assert.AreEqual(40, ammo[Green]);
+        Assert.AreEqual(18, ammo[Blue]);
     }
 
     [Test]

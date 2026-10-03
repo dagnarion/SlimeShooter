@@ -12,30 +12,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7570529ab7f7a4541b312d0eb9dc5397, type: 3}
   m_Name: Level_005
   m_EditorClassIdentifier: SlimeShooter.Runtime::LevelSO
-  palette: {fileID: 11400000, guid: 1159c20af2a8e10459adc0e76eaafd7e, type: 2}
+  palette: {fileID: 3215452033041127038}
   width: 13
   height: 15
-  cells: ffffffffffffffffffffffffffffffffffffffff090000000900000009000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0300000004000000040000000400000004000000ffffffffffffffffffffffffffffffff0400000004000000040000000400000003000000ffffffff04000000040000000400000004000000ffffffffffffffff04000000040000000400000004000000ffffffff03000000ffffffffffffffff0400000004000000ffffffffffffffffffffffffffffffff0400000004000000ffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0800000008000000ffffffff0800000008000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff08000000080000000800000008000000080000000800000008000000ffffffffffffffffffffffffffffffffffffffff080000000800000008000000010000000100000001000000080000000800000008000000ffffffffffffffffffffffffffffffff080000000800000001000000010000000100000001000000010000000800000008000000ffffffffffffffffffffffffffffffff080000000800000008000000010000000100000001000000080000000800000008000000ffffffffffffffffffffffffffffffffffffffff08000000080000000800000008000000080000000800000008000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0800000008000000ffffffff0800000008000000ffffffffffffffffffffffffffffffff
+  cells: ffffffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff01000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff01000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0100000002000000020000000200000002000000ffffffffffffffffffffffffffffffff0200000002000000020000000200000001000000ffffffff02000000020000000200000002000000ffffffffffffffff02000000020000000200000002000000ffffffff01000000ffffffffffffffff0200000002000000ffffffffffffffffffffffffffffffff0200000002000000ffffffffffffffff01000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff01000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0300000003000000ffffffff0300000003000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000030000000300000003000000030000000300000003000000ffffffffffffffffffffffffffffffffffffffff030000000300000003000000040000000400000004000000030000000300000003000000ffffffffffffffffffffffffffffffff030000000300000004000000040000000400000004000000040000000300000003000000ffffffffffffffffffffffffffffffff030000000300000003000000040000000400000004000000030000000300000003000000ffffffffffffffffffffffffffffffffffffffff03000000030000000300000003000000030000000300000003000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0300000003000000ffffffff0300000003000000ffffffffffffffffffffffffffffffff
   columns:
   - shooters:
-    - colorId: 3
-      ammo: 7
-    - colorId: 8
-      ammo: 23
-  - shooters:
-    - colorId: 9
-      ammo: 3
-    - colorId: 4
-      ammo: 20
-  - shooters:
     - colorId: 1
-      ammo: 11
+      ammo: 7
+    - colorId: 2
+      ammo: 8
+    - colorId: 3
+      ammo: 8
   - shooters:
-    - colorId: 8
-      ammo: 15
+    - colorId: 3
+      ammo: 6
+    - colorId: 2
+      ammo: 6
+    - colorId: 3
+      ammo: 4
+  - shooters:
+    - colorId: 4
+      ammo: 11
+    - colorId: 3
+      ammo: 8
+    - colorId: 3
+      ammo: 4
+  - shooters:
+    - colorId: 3
+      ammo: 8
+    - colorId: 0
+      ammo: 3
+    - colorId: 2
+      ammo: 6
   conveyorSlots: 5
   cacheSlots: 5
   sourceTexturePath: Assets/_Project/Resource/ART/LevelSources/LV_005_Flower.png
   generatorColumnCount: 4
-  generatorAmmoSteps: 0a0000000f00000014000000
+  generatorAmmoSteps: 0a000000140000001e000000
   seed: 1004
+--- !u!114 &3215452033041127038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fa48fed025d7d4c82affb32ad8dfff, type: 3}
+  m_Name: Level_005_Palette
+  m_EditorClassIdentifier: SlimeShooter.Runtime::PaletteSO
+  entries:
+  - id: 0
+    name: '#8C5A32'
+    color:
+      serializedVersion: 2
+      rgba: 4281490060
+  - id: 1
+    name: '#46BE50'
+    color:
+      serializedVersion: 2
+      rgba: 4283481670
+  - id: 2
+    name: '#1E783C'
+    color:
+      serializedVersion: 2
+      rgba: 4282152990
+  - id: 3
+    name: '#F078B4'
+    color:
+      serializedVersion: 2
+      rgba: 4290017520
+  - id: 4
+    name: '#F48C28'
+    color:
+      serializedVersion: 2
+      rgba: 4280847604
