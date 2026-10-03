@@ -6,8 +6,10 @@ using UnityEngine.Pool;
 public class SlimeBullet : MonoBehaviour
 {
     [SerializeField] private ComponentPoolSO<SlimeBullet> bulletPool;
+    [SerializeField] private float lifetime = 3f;
     Rigidbody rb;
     private bool isReleased;
+    private float spawnTime;
     public Color32 Color;
     private void Awake()
     {
@@ -17,6 +19,12 @@ public class SlimeBullet : MonoBehaviour
     private void OnEnable()
     {
         isReleased = false;
+        spawnTime = Time.time;
+    }
+
+    private void Update()
+    {
+        if (Time.time - spawnTime >= lifetime) Release();
     }
     
     public void Setup(Vector3 pos, Quaternion rotation,float speed,Color32 color)

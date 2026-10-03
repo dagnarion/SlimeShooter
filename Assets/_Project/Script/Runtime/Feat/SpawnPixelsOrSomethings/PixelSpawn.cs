@@ -11,8 +11,8 @@ public class PixelSpawn : MonoBehaviour
 
     private void Start()
     {
-        SpawnPixels();
         PixelPool.InitPool(holder); // để tạm sau khởi tạo trong boostrap
+        SpawnPixels();
     }
 
     public void SpawnPixels()

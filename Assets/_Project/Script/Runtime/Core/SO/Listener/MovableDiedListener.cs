@@ -1,2 +1,2 @@
-public class MovableExitedListener : EventListener<IGamePieces>
+public class MovableDiedListener : EventListener<IGamePieces>
 { }

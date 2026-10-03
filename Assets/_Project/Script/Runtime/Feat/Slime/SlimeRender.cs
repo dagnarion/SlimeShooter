@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class SlimeRender : MonoBehaviour
