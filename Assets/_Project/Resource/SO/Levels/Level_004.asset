@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7570529ab7f7a4541b312d0eb9dc5397, type: 3}
+  m_Name: Level_004
+  m_EditorClassIdentifier: SlimeShooter.Runtime::LevelSO
+  palette: {fileID: 11400000, guid: 1159c20af2a8e10459adc0e76eaafd7e, type: 2}
+  width: 13
+  height: 13
+  cells: ffffffff0a0000000a0000000a0000000a0000000900000009000000090000000a0000000a0000000a0000000a000000ffffffffffffffff0a0000000a0000000a0000000a0000000900000009000000090000000a0000000a0000000a0000000a000000ffffffffffffffff0a0000000a0000000a0000000a0000000900000009000000090000000a0000000a0000000a0000000a000000ffffffffffffffff0a0000000a0000000a0000000a0000000900000009000000090000000a0000000a0000000a0000000a000000ffffffffffffffff0a00000006000000060000000a0000000a0000000a0000000a0000000a00000006000000060000000a000000ffffffffffffffff0a00000006000000060000000a0000000a0000000a0000000a0000000a00000006000000060000000a000000ffffffffffffffff0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000ffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000009000000ffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000ffffffff0900000009000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0900000009000000ffffffffffffffff
+  columns:
+  - shooters:
+    - colorId: 10
+      ammo: 10
+    - colorId: 0
+      ammo: 20
+    - colorId: 0
+      ammo: 16
+  - shooters:
+    - colorId: 10
+      ammo: 15
+    - colorId: 10
+      ammo: 10
+    - colorId: 0
+      ammo: 10
+  - shooters:
+    - colorId: 6
+      ammo: 8
+    - colorId: 10
+      ammo: 12
+  - shooters:
+    - colorId: 10
+      ammo: 10
+    - colorId: 9
+      ammo: 17
+  conveyorSlots: 5
+  cacheSlots: 5
+  sourceTexturePath: Assets/_Project/Resource/ART/LevelSources/LV_004_House.png
+  generatorColumnCount: 4
+  generatorAmmoSteps: 0a0000000f00000014000000
+  seed: 1003

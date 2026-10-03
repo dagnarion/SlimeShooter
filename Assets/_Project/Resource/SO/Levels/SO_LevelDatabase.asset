@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0136d0c57b62d1e4cb38fce5e266f889, type: 3}
+  m_Name: SO_LevelDatabase
+  m_EditorClassIdentifier: SlimeShooter.Runtime::LevelDatabaseSO
+  levels:
+  - {fileID: 11400000, guid: 4a3161943bf9ed64a933bb9fe8224684, type: 2}
+  - {fileID: 11400000, guid: 40370107574ba2b49978d04e0bbafe9a, type: 2}
+  - {fileID: 11400000, guid: c5b52f5c396ce7a4bb39c1bf20cddbed, type: 2}
+  - {fileID: 11400000, guid: 14619766cd692824ead0084e0a80107d, type: 2}
+  - {fileID: 11400000, guid: 81ba7bc1acf733349b354f36d120dcd0, type: 2}
+  loopStartIndex: 0

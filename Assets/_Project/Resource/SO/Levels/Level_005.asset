@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7570529ab7f7a4541b312d0eb9dc5397, type: 3}
+  m_Name: Level_005
+  m_EditorClassIdentifier: SlimeShooter.Runtime::LevelSO
+  palette: {fileID: 11400000, guid: 1159c20af2a8e10459adc0e76eaafd7e, type: 2}
+  width: 13
+  height: 15
+  cells: ffffffffffffffffffffffffffffffffffffffff090000000900000009000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0300000004000000040000000400000004000000ffffffffffffffffffffffffffffffff0400000004000000040000000400000003000000ffffffff04000000040000000400000004000000ffffffffffffffff04000000040000000400000004000000ffffffff03000000ffffffffffffffff0400000004000000ffffffffffffffffffffffffffffffff0400000004000000ffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0800000008000000ffffffff0800000008000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff08000000080000000800000008000000080000000800000008000000ffffffffffffffffffffffffffffffffffffffff080000000800000008000000010000000100000001000000080000000800000008000000ffffffffffffffffffffffffffffffff080000000800000001000000010000000100000001000000010000000800000008000000ffffffffffffffffffffffffffffffff080000000800000008000000010000000100000001000000080000000800000008000000ffffffffffffffffffffffffffffffffffffffff08000000080000000800000008000000080000000800000008000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff0800000008000000ffffffff0800000008000000ffffffffffffffffffffffffffffffff
+  columns:
+  - shooters:
+    - colorId: 3
+      ammo: 7
+    - colorId: 8
+      ammo: 23
+  - shooters:
+    - colorId: 9
+      ammo: 3
+    - colorId: 4
+      ammo: 20
+  - shooters:
+    - colorId: 1
+      ammo: 11
+  - shooters:
+    - colorId: 8
+      ammo: 15
+  conveyorSlots: 5
+  cacheSlots: 5
+  sourceTexturePath: Assets/_Project/Resource/ART/LevelSources/LV_005_Flower.png
+  generatorColumnCount: 4
+  generatorAmmoSteps: 0a0000000f00000014000000
+  seed: 1004

@@ -3,14 +3,15 @@ using Reflex.Attributes;
 using UnityEngine;
 
 /// <summary>
-/// Điểm vào của scene gameplay. P1: chỉ đưa session sang Playing.
-/// Từ P2 sẽ load level qua LevelService trước khi StartPlaying.
+/// Điểm vào của scene gameplay: lấy level hiện tại rồi đưa session sang Playing.
+/// Từ P3/P4 sẽ dựng board và cột shooter từ level trước khi StartPlaying.
 /// </summary>
 public class GameplayEntryPoint : MonoBehaviour
 {
     [SerializeField] private bool logStateChanges = true;
 
     [Inject] private GameSession _session;
+    [Inject] private LevelService _levelService;
 
     private void Start()
     {
@@ -21,6 +22,15 @@ public class GameplayEntryPoint : MonoBehaviour
                 .AddTo(this);
         }
 
+        var level = _levelService.Current;
+        var validation = LevelValidator.Validate(level);
+        if (!validation.IsValid)
+        {
+            Debug.LogError($"[Gameplay] Level {_levelService.DisplayNumber} ({(level != null ? level.name : "null")}) không hợp lệ:\n{validation}");
+            return;
+        }
+
+        Debug.Log($"[Gameplay] Level {_levelService.DisplayNumber}: {level.name} ({level.Width}x{level.Height}, {level.Columns.Count} cột)");
         _session.StartPlaying();
     }
 }

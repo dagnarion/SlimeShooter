@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fa48fed025d7d4c82affb32ad8dfff, type: 3}
+  m_Name: SO_DefaultPalette
+  m_EditorClassIdentifier: SlimeShooter.Runtime::PaletteSO
+  entries:
+  - id: 0
+    name: Red
+    color:
+      serializedVersion: 2
+      rgba: 4282792422
+  - id: 1
+    name: Orange
+    color:
+      serializedVersion: 2
+      rgba: 4280847604
+  - id: 2
+    name: Yellow
+    color:
+      serializedVersion: 2
+      rgba: 4281520890
+  - id: 3
+    name: Green
+    color:
+      serializedVersion: 2
+      rgba: 4283481670
+  - id: 4
+    name: DarkGreen
+    color:
+      serializedVersion: 2
+      rgba: 4282152990
+  - id: 5
+    name: Cyan
+    color:
+      serializedVersion: 2
+      rgba: 4292659260
+  - id: 6
+    name: Blue
+    color:
+      serializedVersion: 2
+      rgba: 4292633650
+  - id: 7
+    name: Purple
+    color:
+      serializedVersion: 2
+      rgba: 4291317900
+  - id: 8
+    name: Pink
+    color:
+      serializedVersion: 2
+      rgba: 4290017520
+  - id: 9
+    name: Brown
+    color:
+      serializedVersion: 2
+      rgba: 4281490060
+  - id: 10
+    name: White
+    color:
+      serializedVersion: 2
+      rgba: 4293980400
+  - id: 11
+    name: Black
+    color:
+      serializedVersion: 2
+      rgba: 4280821800

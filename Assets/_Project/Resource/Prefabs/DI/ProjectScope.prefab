@@ -57,3 +57,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bcc89a687652144b0888d5cdd7507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: SlimeShooter.Runtime::ProjectInstaller
+  levelDatabase: {fileID: 11400000, guid: 5740e3cd230387644af046d61ef22488, type: 2}
