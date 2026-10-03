@@ -21,9 +21,12 @@ public class ShooterPickService : IDisposable
     /// <summary>Bấm vào shooter nhưng không được chọn (không đứng đầu cột...). Dùng cho feedback.</summary>
     public Observable<ShooterModel> OnPickRejected => _onPickRejected;
 
+    /// <summary>Khoá input của người chơi (end rush, tutorial...).</summary>
+    public bool IsLocked { get; set; }
+
     public bool TryPick(ShooterModel shooter)
     {
-        if (shooter == null || !_session.IsPlaying) return false;
+        if (shooter == null || IsLocked || !_session.IsPlaying) return false;
 
         var container = shooter.Container;
         if (container == null || !container.CanPick(shooter))

@@ -14,8 +14,25 @@ public class ShooterView : MonoBehaviour
     private IDisposable _binding;
     private Tween _moveTween;
     private Tween _feedbackTween;
+    private Tween _faceTween;
+    private Quaternion _visualBaseRotation = Quaternion.identity;
 
     public ShooterModel Model { get; private set; }
+
+    private void Awake()
+    {
+        if (visual != null) _visualBaseRotation = visual.localRotation;
+    }
+
+    /// <summary>Quay phần thân về hướng <paramref name="direction"/> (text ammo giữ nguyên để luôn đọc được).</summary>
+    public void Face(Vector3 direction, float duration = 0f)
+    {
+        if (visual == null || direction.sqrMagnitude < 1e-6f) return;
+        Quaternion target = Quaternion.LookRotation(direction, Vector3.up) * _visualBaseRotation;
+        _faceTween?.Kill();
+        if (duration <= 0f) visual.rotation = target;
+        else _faceTween = visual.DORotateQuaternion(target, duration).SetLink(gameObject);
+    }
 
     public void Bind(ShooterModel model, Material material)
     {
@@ -46,6 +63,15 @@ public class ShooterView : MonoBehaviour
         return _moveTween;
     }
 
+    /// <summary>Dừng tween di chuyển (khi băng chuyền bắt đầu điều khiển vị trí).</summary>
+    public void StopMotion()
+    {
+        _moveTween?.Kill();
+        _moveTween = null;
+    }
+
+    public bool IsMoving => _moveTween != null && _moveTween.IsActive() && _moveTween.IsPlaying();
+
     /// <summary>Lắc nhẹ khi bấm vào shooter không chọn được.</summary>
     public void PlayRejectFeedback()
     {
@@ -56,6 +82,7 @@ public class ShooterView : MonoBehaviour
 
     private void OnDisable()
     {
+        _faceTween?.Kill();
         _moveTween?.Kill();
         _feedbackTween?.Kill(true);
         Unbind();

@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using R3;
 using Reflex.Attributes;
 using UnityEngine;
 
 /// <summary>
-/// Đặt shooter theo cột phía dưới board. Hàng 0 (đứng đầu) gần board nhất, các hàng sau lùi về -Z.
+/// Đặt shooter theo cột phía dưới băng chuyền. Hàng 0 (đứng đầu) gần băng nhất, các hàng sau lùi về -Z.
 /// </summary>
 public class ShooterColumnsView : MonoBehaviour
 {
@@ -12,15 +11,24 @@ public class ShooterColumnsView : MonoBehaviour
     [SerializeField] private Transform shooterRoot;
     [Tooltip("CellSize + CellGap quyết định khoảng cách giữa các cột (x) và các hàng (y -> trục Z).")]
     [SerializeField] private GridDataSO layoutData;
+    [Tooltip("Khoảng cách từ mép dưới băng chuyền tới hàng đầu (chừa chỗ cho khay chờ).")]
+    [Min(0f)] [SerializeField] private float offsetBelowBelt = 3.4f;
     [Min(0f)] [SerializeField] private float shiftDuration = 0.25f;
 
     [Inject] private ShooterColumns _columns;
     [Inject] private ShooterPickService _pickService;
     [Inject] private PaletteMaterialCache _materials;
-
-    private readonly Dictionary<ShooterModel, ShooterView> _views = new Dictionary<ShooterModel, ShooterView>();
+    [Inject] private ShooterViewRegistry _registry;
+    [Inject] private IConveyorPath _path;
 
     public ShooterViewPoolSO Pool => shooterPool;
+
+    private void Awake()
+    {
+        // Đặt anchor trước Start để camera framer đọc được bounds.
+        var bounds = _path.Bounds;
+        transform.position = new Vector3(bounds.center.x, transform.position.y, bounds.min.z - offsetBelowBelt);
+    }
 
     private void Start()
     {
@@ -34,7 +42,7 @@ public class ShooterColumnsView : MonoBehaviour
         _pickService.OnPickRejected
             .Subscribe(shooter =>
             {
-                if (_views.TryGetValue(shooter, out var view)) view.PlayRejectFeedback();
+                if (_registry.TryGet(shooter, out var view)) view.PlayRejectFeedback();
             })
             .AddTo(this);
     }
@@ -50,32 +58,36 @@ public class ShooterColumnsView : MonoBehaviour
                 ShooterView view = shooterPool.Get();
                 view.Bind(shooter, _materials.Get(shooter.ColorId));
                 view.transform.SetPositionAndRotation(SlotPosition(c, r), Quaternion.identity);
-                _views[shooter] = view;
+                _registry.Register(shooter, view);
             }
         }
     }
 
-    /// <summary>Tách view khỏi cột để hệ thống khác (băng chuyền) điều khiển tiếp.</summary>
-    public bool TryDetach(ShooterModel shooter, out ShooterView view)
-    {
-        if (!_views.TryGetValue(shooter, out view)) return false;
-        _views.Remove(shooter);
-        return true;
-    }
-
     public Vector3 SlotPosition(int column, int row)
     {
-        Vector2 step = layoutData != null ? layoutData.CellSize + layoutData.CellGap : Vector2.one * 1.2f;
+        Vector2 step = Step;
         float x = (column - (_columns.ColumnCount - 1) * 0.5f) * step.x;
         return transform.position + new Vector3(x, 0f, -row * step.y);
     }
+
+    /// <summary>Vùng chiếm bởi các cột (dùng để căn camera).</summary>
+    public Bounds GetBounds(int visibleRows = 3)
+    {
+        Vector2 step = Step;
+        float width = Mathf.Max(1, _columns.ColumnCount) * step.x;
+        float depth = Mathf.Max(1, visibleRows) * step.y;
+        var center = transform.position + new Vector3(0f, 0f, -(depth - step.y) * 0.5f);
+        return new Bounds(center, new Vector3(width, 0f, depth));
+    }
+
+    private Vector2 Step => layoutData != null ? layoutData.CellSize + layoutData.CellGap : Vector2.one * 1.2f;
 
     private void Relayout(int column)
     {
         var shooters = _columns.GetColumn(column);
         for (int r = 0; r < shooters.Count; r++)
         {
-            if (_views.TryGetValue(shooters[r], out var view)) view.MoveTo(SlotPosition(column, r), shiftDuration);
+            if (_registry.TryGet(shooters[r], out var view)) view.MoveTo(SlotPosition(column, r), shiftDuration);
         }
     }
 }
