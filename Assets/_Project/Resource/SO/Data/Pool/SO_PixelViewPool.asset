@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f548e25c0b619540a1a42ca9a8a3541, type: 3}
+  m_Name: SO_PixelViewPool
+  m_EditorClassIdentifier: SlimeShooter.Runtime::PixelViewPoolSO
+  prefab: {fileID: 3879294873551433975, guid: 4840982e0a64db240a1b4a0f0fefc023, type: 3}
+  Capacity: 256
+  MaxSize: 2048
