@@ -1,0 +1,25 @@
+{
+    "name": "SlimeShooter.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "Reflex",
+        "R3.Unity",
+        "DOTween.Modules",
+        "Unity.Splines",
+        "Unity.Mathematics",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI",
+        "NaughtyAttributes.Core",
+        "com.nomnom.raycast-visualization"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -11,6 +11,7 @@ public abstract class ComponentPoolSO<T> : ScriptableObject where T : Component
 
     public void InitPool(Transform parent = null)
     {
+        Clear(); // tránh pool cũ bị bỏ rơi khi init lại
         PoolRoot = parent;
         Pools = new ObjectPool<T>
         (
@@ -41,6 +42,14 @@ public abstract class ComponentPoolSO<T> : ScriptableObject where T : Component
     {
         if (instance != null)
             Destroy(instance.gameObject);
+    }
+
+    public void Prewarm(int count)
+    {
+        if (Pools == null) InitPool(PoolRoot);
+        var temp = new System.Collections.Generic.List<T>(count);
+        for (int i = 0; i < count; i++) temp.Add(Pools.Get());
+        foreach (var instance in temp) Pools.Release(instance);
     }
 
     public T Get()
