@@ -12,6 +12,7 @@ public class GameplayEntryPoint : MonoBehaviour
 
     [Inject] private GameSession _session;
     [Inject] private LevelService _levelService;
+    [Inject] private ShooterPickService _pickService;
 
     private void Start()
     {
@@ -19,6 +20,9 @@ public class GameplayEntryPoint : MonoBehaviour
         {
             _session.State
                 .Subscribe(state => Debug.Log($"[GameSession] State = {state}"))
+                .AddTo(this);
+            _pickService.OnPicked
+                .Subscribe(shooter => Debug.Log($"[Pick] {shooter}"))
                 .AddTo(this);
         }
 

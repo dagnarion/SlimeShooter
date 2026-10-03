@@ -26,6 +26,14 @@ public class GameplayInstaller : MonoBehaviour, IInstaller
         builder.RegisterType(typeof(TickScheduler), Lifetime.Singleton, Resolution.Lazy);
 
         RegisterBoard(builder);
+        RegisterShooters(builder);
+    }
+
+    private void RegisterShooters(ContainerBuilder builder)
+    {
+        builder.RegisterFactory(container => new ShooterColumns(container.Resolve<LevelService>().Current),
+            Lifetime.Singleton, Resolution.Lazy);
+        builder.RegisterType(typeof(ShooterPickService), Lifetime.Singleton, Resolution.Lazy);
     }
 
     private void RegisterBoard(ContainerBuilder builder)
